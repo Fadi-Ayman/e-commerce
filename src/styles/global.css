@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif !important;
+}
+
+
+
+/*=== 
+  Start KeyFrames
+===*/
+
+@keyframes scrollLeft {
+  to {
+    left: -200px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/*=== 
+  End KeyFrames
+===*/
+
+/*=== 
+  Start Animation Classes
+===*/
+
+.fadein {
+  animation: fadeIn 0.5s normal;
+}
+
+/*=== 
+  End Animation Classes
+===*/

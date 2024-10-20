@@ -1,0 +1,97 @@
+/*=== 
+  Start Change MUI Styles
+===*/
+
+/* All & Select Inputs Reset Primary color Border And Label To Black  except in error */
+
+/* Default black border for focused outlined input */
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border: 1.5px solid black !important;
+}
+
+/* Error state for outlined input */
+.MuiOutlinedInput-root.Mui-focused.Mui-error .MuiOutlinedInput-notchedOutline {
+  border: 1.5px solid red !important;
+}
+
+/* Default black border for focused select */
+.MuiSelect-root.Mui-focused {
+  border-color: black !important;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Error state for focused select */
+
+/* Change label color on focus */
+.MuiInputLabel-root.Mui-focused {
+  color: black !important;
+}
+.MuiSelect-root.Mui-focused.Mui-error {
+  border-color: red !important;
+}
+
+/* Change label color for error state */
+.css-1jefbl2-MuiInputBase-root-MuiInput-root::after {
+  border-bottom: 2px solid black !important;
+}
+
+.css-1mo5lxd-MuiInputBase-root-MuiInput-root::after {
+  border-bottom: 2px solid black !important ;
+}
+
+/* Global CSS for Material-UI TextField and Input Components */
+
+/* Styles for Input Label */
+.MuiInputLabel-root {
+  color: rgba(128, 128, 128, 0.5); /* Equivalent to grey.300 */
+  font-weight: 500;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  color: rgba(0, 0, 0, 0.7); /* Equivalent to grey.700 */
+}
+
+/* Hover State */
+.MuiInputBase-root:hover {
+  border-color: rgba(128, 128, 128, 0.5); /* Equivalent to grey.500 */
+}
+
+/* Focus State */
+.MuiInputBase-root:focus-within {
+  border-color: black; /* Border color on focus */
+}
+
+/* Error State */
+.MuiInputBase-root.Mui-error {
+  border-color: red; /* Border color when there's an error */
+}
+
+/* Underline effect for focused state */
+.MuiInputBase-root:before,
+.MuiInputBase-root:after {
+  border-bottom: 2px solid transparent; /* Default for underline */
+}
+
+.MuiInputBase-root:focus-within:before,
+.MuiInputBase-root:focus-within:after {
+  border-bottom: 2px solid black; /* Underline color on focus */
+}
+
+.css-1jefbl2-MuiInputBase-root-MuiInput-root.Mui-error::before,
+.css-1jefbl2-MuiInputBase-root-MuiInput-root.Mui-error::after {
+  border-bottom-color: #ff5630;
+}
+
+/* AutoCompleteTextBox Styles */
+.MuiAutocomplete-groupLabel {
+  background-color: black !important;
+  color: white !important;
+}
+.MuiAutocomplete-option:hover {
+  background-color: rgb(224, 222, 222) !important;
+  color: orange;
+}
+
+/*=== 
+  End Change MUI Styles
+===*/
