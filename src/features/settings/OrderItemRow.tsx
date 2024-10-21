@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { OrdersRowsType } from "../../Types/Types";
 import { formateCurrency } from "../../utils/helpers";
 
-function OrderItemRow({ id, date, status, price }: OrdersRowsType) {
+function OrderItemRow({ id, date, status, totalPrice }: OrdersRowsType) {
   return (
     <>
       <Typography
@@ -39,7 +39,7 @@ function OrderItemRow({ id, date, status, price }: OrdersRowsType) {
           textAlign: "center",
         }}
       >
-        {formateCurrency(price)}
+        {formateCurrency(totalPrice)}
       </Typography>
     </>
   );

@@ -43,7 +43,7 @@ function Orders() {
                 id={order.id}
                 date={order.date}
                 status={order.status}
-                price={order.price}
+                totalPrice={order.totalPrice}
               />
             );
           })}
