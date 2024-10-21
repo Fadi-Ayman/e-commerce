@@ -1,16 +1,21 @@
 import { Box, Divider, Typography } from "@mui/material";
 import { formateCurrency } from "../../utils/helpers";
 import QuantityInput from "../QuantityInput";
-import { useState } from "react";
+import { CartItemType } from "../../Types/Types";
+import { useDispatch } from "react-redux";
+import { setQuantity } from "../../store/CartSlice";
 
-type OrderSummaryItemProps = {
-  name: string;
-  image: string;
-  price: number;
-};
+type OrderSummaryItemProps = Omit<CartItemType, "price">;
 
-function OrderSummaryItem({ name, price, image }: OrderSummaryItemProps) {
-  const [quantity, setQuantity] = useState<number>(1);
+function OrderSummaryItem({ id,name, image, quantity, subTotal }: OrderSummaryItemProps) {
+
+  const dispatch = useDispatch()
+
+  function handleSetQuantity(quantity: number) {
+    dispatch(setQuantity({ id, quantity }))
+  }
+
+
 
   return (
     <>
@@ -27,7 +32,7 @@ function OrderSummaryItem({ name, price, image }: OrderSummaryItemProps) {
           sx={{
             width: "100%",
             display: "flex",
-            gap: "0.5rem",
+            gap: "1rem",
             alignItems: "center",
           }}
         >
@@ -50,16 +55,16 @@ function OrderSummaryItem({ name, price, image }: OrderSummaryItemProps) {
               justifyContent: "start",
             }}
           >
-            <Typography>{name}</Typography>
+            <Typography sx={{ fontWeight: "500" }}>{name}</Typography>
 
-            <QuantityInput quantity={quantity} setQuantity={setQuantity} />
+            <QuantityInput quantity={quantity} setQuantity={handleSetQuantity} />
           </Box>
         </Box>
 
         {/* Product Price */}
 
-        <Typography sx={{ textAlign: "end", width: "50%" }}>
-          {formateCurrency(price)}
+        <Typography sx={{ textAlign: "end", width: "50%" ,fontWeight:"500"}}>
+          {formateCurrency(subTotal)}
         </Typography>
       </Box>
 

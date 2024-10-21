@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 function EmptyDataMsg({ message,withGoBack = false }: { message: string, withGoBack?: boolean }) {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ function EmptyDataMsg({ message,withGoBack = false }: { message: string, withGoB
         component={"span"}
         variant="body1"
         sx={{ cursor: "pointer", textDecoration: "underline" }}
-        onClick={() => navigate("/")}
+        onClick={() => navigate(-1)}
       >
         Go back
       </Typography>}

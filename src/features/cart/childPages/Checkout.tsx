@@ -2,8 +2,23 @@ import { Box } from "@mui/material";
 import OrderSummary from "../OrderSummary.tsx";
 import CheckoutForm from "../CheckoutForm.tsx";
 import CheckoutSubmitButton from "../../../components/OneUseComponents/CheckoutSubmitButton.tsx";
+import {  useSelector } from "react-redux";
+import { RootState } from "../../../store/store.ts";
+import { Navigate } from "react-router-dom";
+
+const currentPage = 1;
 
 function Checkout() {
+  const storeCurrentPage = useSelector((state: RootState) => state.Cart.currentCartPage);
+
+
+
+
+
+
+  
+
+  if(storeCurrentPage !== currentPage) return <Navigate to="/cart" />
 
   return (
     <Box

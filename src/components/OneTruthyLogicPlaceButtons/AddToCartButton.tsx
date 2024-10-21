@@ -1,9 +1,12 @@
 import { Button } from "@mui/material";
 import toast from "react-hot-toast";
 import { theme } from "../../styles/theme";
+import { CartItemType } from "../../Types/Types";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../store/CartSlice";
+import { RootState } from "../../store/store";
 
-type AddToCartButtonProps = {
-  id: string;
+type AddToCartButtonProps = Omit<CartItemType, "subTotal"> & {
   gridRow?: string;
   gridColumn?: string;
   isInTable?: boolean;
@@ -11,14 +14,40 @@ type AddToCartButtonProps = {
 
 function AddToCartButton({
   id,
+  image,
+  name,
+  price,
+  quantity = 1,
   gridRow = "",
   gridColumn = "",
   isInTable = false,
 }: AddToCartButtonProps) {
-  function handleAddToCartButton(e: React.MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation();
-    toast.success(`The Product ${id} Added to the Cart successfully`);
+
+  const dispatch = useDispatch()
+  const isInCart = useSelector((state: RootState) => state.Cart.cartList.some((item) => item.id === id))
+
+  const CartItemData: CartItemType = {
+    id,
+    image,
+    name,
+    price,
+    quantity,
+    subTotal: quantity * price,
+  };
+
+
+
+
+  function handleAddToCartButton() {
+    if (isInCart) {
+      toast.error(`( ${name} ) is Already in the Cart`)
+      return
+    }
+
+    toast.success( `( ${name} ) Added to the Cart successfully`);
+    dispatch(addToCart(CartItemData))
   }
+
 
   return (
     <Button

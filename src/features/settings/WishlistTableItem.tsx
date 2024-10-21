@@ -1,16 +1,18 @@
 import { Typography } from "@mui/material";
-import { ProductType } from "../../Types/ProductTypes";
 import WishListProduct from "./WishListProduct";
 import RemoveButton from "../../components/OneTruthyLogicPlaceButtons/RemoveButton";
 import { formateCurrency } from "../../utils/helpers";
 import AddToCartButton from "../../components/OneTruthyLogicPlaceButtons/AddToCartButton";
+import { CartItemType } from "../../Types/Types";
 
-type WishlistTableItemProps = Pick<
-  ProductType,
-  "id" | "image" | "name" | "price"
->;
+type WishlistTableItemProps = Omit<CartItemType, "subTotal"|"quantity">;
 
-function WishlistTableItem({ id, name, price, image }: WishlistTableItemProps) {
+function WishlistTableItem({
+  id,
+  name,
+  price,
+  image,
+}: WishlistTableItemProps) {
   return (
     <>
       <WishListProduct productName={name} productImage={image} />
@@ -23,8 +25,17 @@ function WishlistTableItem({ id, name, price, image }: WishlistTableItemProps) {
       >
         {formateCurrency(price)}
       </Typography>
-      <AddToCartButton id={id} isInTable={true} />
-      <RemoveButton removeFrom="wishlist" productId={id} />
+
+      <AddToCartButton
+        image={image}
+        name={name}
+        price={price}
+        quantity={1}
+        id={id}
+        isInTable={true}
+      />
+
+      <RemoveButton productName={name} removeFrom="wishlist" productId={id} />
     </>
   );
 }

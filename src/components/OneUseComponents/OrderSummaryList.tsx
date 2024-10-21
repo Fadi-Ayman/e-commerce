@@ -7,7 +7,7 @@ function OrderSummaryList({ children }: { children: React.ReactNode }) {
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        mb: "2.5rem",
+        mb: "1.5rem",
       }}
     >
       {children}

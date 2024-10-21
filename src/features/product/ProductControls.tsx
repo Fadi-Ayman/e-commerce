@@ -1,14 +1,25 @@
 import { Box } from "@mui/material";
 import QuantityInput from "../../components/QuantityInput";
 import AddToCartButton from "../../components/OneTruthyLogicPlaceButtons/AddToCartButton";
-import { ProductType } from "../../Types/ProductTypes";
 import { useState } from "react";
 import AddToWishListButton from "../../components/OneTruthyLogicPlaceButtons/AddToWishListButton";
+import { CartItemType } from "../../Types/Types";
 
-type ProductControlsProps = Pick<ProductType, "id">;
+type ProductControlsProps = Omit<CartItemType, "quantity" | "subTotal">;
 
-function ProductControls({ id: productId }: ProductControlsProps) {
+function ProductControls({
+  id: productId,
+  image: productImage,
+  name: productName,
+  price: productPrice,
+}: ProductControlsProps) {
+
   const [quantity, setQuantity] = useState<number>(1);
+
+  function handleSetQuantity(quantity: number) {
+    setQuantity(quantity);
+  }
+
 
   return (
     <Box
@@ -27,9 +38,19 @@ function ProductControls({ id: productId }: ProductControlsProps) {
         gridColumn="1/3"
         gridRow="1/2"
         quantity={quantity}
-        setQuantity={setQuantity}
+        setQuantity={handleSetQuantity}
       />
-      <AddToCartButton id={productId} gridRow="2/3" gridColumn="1/-1" />
+
+      <AddToCartButton
+        id={productId}
+        image={productImage}
+        name={productName}
+        price={productPrice}
+        quantity={quantity}
+        gridRow="2/3"
+        gridColumn="1/-1"
+      />
+
       <AddToWishListButton
         id={productId}
         isInCard={false}

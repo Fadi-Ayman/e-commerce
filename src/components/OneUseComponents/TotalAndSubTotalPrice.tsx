@@ -1,9 +1,17 @@
 import { Box, Divider, Typography } from "@mui/material";
 import { formateCurrency } from "../../utils/helpers";
-import { DummyProducts } from "../../utils/dummyData";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { shippingPrice } from "../../utils/constants";
+import { useLocation } from "react-router-dom";
 
 function TotalAndSubTotalPrice() {
-  const totalPrice = DummyProducts.reduce((total, product) => total + product.price, 0);
+  const pathname = useLocation().pathname;
+  const cartList = useSelector((state: RootState) => state.Cart.cartList);
+  
+  
+  const subTotal = cartList.reduce((total, product) => total + product.subTotal, 0);
+  const totalPrice = subTotal + shippingPrice;
 
   return (
     <Box
@@ -12,9 +20,14 @@ function TotalAndSubTotalPrice() {
         flexDirection: "column",
         gap: "1rem",
         width: "100%",
+        position:"sticky",
+        bottom:"0",
+        bgcolor:"grey.50",
+        zIndex:"9999",
+        padding:pathname === "/cart/checkout" ? "1rem": "0rem"
       }}
     >
-      {/* Subtotal With Fake Value */}
+
       <Box
         component={"div"}
         sx={{
@@ -34,6 +47,7 @@ function TotalAndSubTotalPrice() {
           }}
         >
           Subtotal
+          <span style={{ marginLeft: "0.4rem",color:"grey",fontSize:"12px" ,verticalAlign:"middle"}}> +shipping</span>
         </Typography>
 
         <Typography
@@ -44,13 +58,12 @@ function TotalAndSubTotalPrice() {
             display: "block",
           }}
         >
-          {formateCurrency(totalPrice / 20)}
+          {formateCurrency(subTotal)}
         </Typography>
       </Box>
 
       <Divider />
 
-      {/* Tatal With  Value of dummy products */}
       <Box
         component={"div"}
         sx={{

@@ -1,16 +1,19 @@
-import React, { useState } from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import { Box } from "@mui/material";
+import { PaymentMethods as PaymentMethodsType } from "../../Types/ApiTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { setPaymentMethod } from "../../store/CartSlice";
 
 function PaymentMethods() {
-  const [selectedPaymentMethod, setSelectedPaymentMethod] =
-    useState("Pay On Delivery");
+  const dispatch = useDispatch();
+  const paymentMethod = useSelector((state: RootState) => state.Cart.paymentMethod);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedPaymentMethod(event.target.value);
+    dispatch(setPaymentMethod(event.target.value as PaymentMethodsType));
   };
 
 
@@ -21,33 +24,34 @@ function PaymentMethods() {
       }}
     >
       <RadioGroup
-        value={selectedPaymentMethod}
-        name="radio-buttons-group"
+        value={paymentMethod}
         onChange={handleChange}
         sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
       >
         <PaymentRadioContainer isDisabled={false}>
           <FormControlLabel
-            value="Pay On Delivery"
+            sx={{textTransform:"capitalize"}}
+            value={"pay-on-delivery"}
             control={
               <Radio
-                sx={{ color: "black", "&.Mui-checked": { color: "black" } }}
+                sx={{ color: "black", "&.Mui-checked": { color: "black" }  }}
               />
             }
-            label="Pay On Delivery"
+            label={"pay-on-delivery".split("-").join(" ")}
           />
         </PaymentRadioContainer>
 
         <PaymentRadioContainer isDisabled={true}>
           <FormControlLabel
-            value="Credit Card"
+            sx={{textTransform:"capitalize"}}
+            value={"credit-card"}
             control={
               <Radio
-                sx={{ color: "black", "&.Mui-checked": { color: "black" } }}
+                sx={{ color: "black", "&.Mui-checked": { color: "black" }  }}
               />
             }
-            label="Credit Card"
-            disabled
+            label={"credit-card".split("-").join(" ")}
+            disabled={true}
           />
         </PaymentRadioContainer>
       </RadioGroup>

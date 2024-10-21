@@ -1,13 +1,19 @@
 import { Box } from "@mui/material";
-import { DummyProducts } from "../../../utils/dummyData";
 import EmptyDataMsg from "../../../components/EmptyDataMsg";
 import CustomTable from "../../../components/CustomTable/CustomTable";
 import CartItem from "../CartItem";
 import { CartListHeaderTables } from "../../../utils/constants";
 import CartSummary from "../CartSummary.tsx";
+import { RootState } from "../../../store/store.ts";
+import { useSelector } from "react-redux";
+
 
 function CartTable() {
-  const isEmptyCart = DummyProducts.length === 0;
+
+  const  cartList  = useSelector((state: RootState) => state.Cart.cartList);
+ 
+
+  const isEmptyCart = cartList.length === 0;
 
   return (
     <Box
@@ -35,13 +41,15 @@ function CartTable() {
             gap="0.5rem"
             gridTemplateColumns="1fr 1.2fr 1fr 1fr 0.5fr"
           >
-            {DummyProducts.map((product) => (
+            {cartList?.map((product) => (
               <CartItem
                 key={product.id}
                 id={product.id}
                 name={product.name}
                 price={product.price}
                 image={product.image}
+                quantity={product.quantity}
+                subTotal={product.subTotal}
               />
             ))}
           </CustomTable>

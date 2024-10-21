@@ -15,6 +15,7 @@ type ProductInfoProps = Pick<
   | "discountEndDate"
   | "ratingValue"
   | "reviewsNumber"
+  | "image"
 >;
 
 function ProductInfo({
@@ -27,6 +28,7 @@ function ProductInfo({
   discountEndDate,
   ratingValue,
   reviewsNumber,
+  image,
 }: ProductInfoProps) {
   return (
     <Box
@@ -61,7 +63,13 @@ function ProductInfo({
       />
 
       {/* ProductControls  */}
-      <ProductControls id={id} />
+      <ProductControls
+        image={image}
+        name={name}
+        price={price}
+        id={id}
+        
+      />
     </Box>
   );
 }

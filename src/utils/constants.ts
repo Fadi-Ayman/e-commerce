@@ -11,6 +11,8 @@ export const productsCarouselMaxCount: number = 10;
 export const brandName = "Logo";
 export const dayTimerDate = new Date("2025-06-01").toISOString();
 export const currency = "USD"
+export const shippingPrice = 200    // To Calculate Total Price in Cart
+
 
 export const partnerlogosArray: Logo[] = [
   { label: "logo1", imageSrc: "/logo1.png" },

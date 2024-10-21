@@ -43,6 +43,7 @@ function ProductDetails({
       <ProductImages images={images} />
 
       <ProductInfo
+        image={images[0]}
         id={id}
         name={name}
         description={description}

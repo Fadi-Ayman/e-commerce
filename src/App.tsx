@@ -30,7 +30,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AppLayout />}>
-            <Route index element={<Navigate to="home" />} />
+            <Route index element={<Navigate  to="home" />} />
             <Route path="/home" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/products/:productId" element={<Product />} />
@@ -39,14 +39,14 @@ function App() {
             <Route path="/contact" element={<Contact />} />
 
             <Route path="/cart" element={<Cart />}>
-              <Route index element={<Navigate to="/cart/table" />} />
-              <Route path="/cart/table" element={<CartTable />} />
-              <Route path="/cart/checkout" element={<Checkout />} />
-              <Route path="/cart/order-complete" element={<OrderComplete />} />
+              <Route index element={<Navigate  to="/cart/table" />} />
+              <Route path="/cart/table"   element={<CartTable />} />
+              <Route path="/cart/checkout"  element={<Checkout />} />
+              <Route path="/cart/order-complete"  element={<OrderComplete />} />
             </Route>
 
             <Route path="/settings" element={<UserSettings />}>
-              <Route index element={<Navigate to="/settings/account" />} />
+              <Route index  element={<Navigate replace to="/settings/account" />} />
               <Route
                 path="/settings/account"
                 element={<AccountData />}

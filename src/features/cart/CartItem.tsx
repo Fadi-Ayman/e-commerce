@@ -1,25 +1,33 @@
 import { Typography } from "@mui/material";
 import WishListProduct from "../settings/WishListProduct";
 import { formateCurrency } from "../../utils/helpers";
-import { useState } from "react";
 import QuantityInput from "../../components/QuantityInput";
 import RemoveButton from "../../components/OneTruthyLogicPlaceButtons/RemoveButton";
+import { CartItemType } from "../../Types/Types";
+import { setQuantity } from "../../store/CartSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
 
-type CartItemProps = {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-};
+type CartItemProps = CartItemType;
 
-function CartItem({ name, image, price, id }: CartItemProps) {
-  const [quantity, setQuantity] = useState<number>(1);
+function CartItem({
+  name,
+  image,
+  price,
+  id,
+  quantity,
+  subTotal,
+}: CartItemProps) {
+  const dispatch: AppDispatch = useDispatch();
+
+  const handleSetQuantity = (quantity: number) =>
+    dispatch(setQuantity({ id, quantity }));
 
   return (
     <>
       <WishListProduct productName={name} productImage={image} />
 
-      <QuantityInput quantity={quantity} setQuantity={setQuantity} />
+      <QuantityInput quantity={quantity} setQuantity={handleSetQuantity} />
 
       <Typography
         sx={{
@@ -38,10 +46,10 @@ function CartItem({ name, image, price, id }: CartItemProps) {
           textAlign: "center",
         }}
       >
-        {formateCurrency(price * quantity)}
+        {formateCurrency(subTotal)}
       </Typography>
 
-      <RemoveButton removeFrom="cart" productId={id} />
+      <RemoveButton productName={name} removeFrom="cart" productId={id} />
     </>
   );
 }

@@ -4,6 +4,8 @@ import ShippingAddressForm from "./ShippingAddressForm";
 import { theme } from "../../styles/theme";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCurrentCartPage } from "../../store/CartSlice";
 
 export type CheckoutFormInputsType = {
   firstName: string;
@@ -37,10 +39,12 @@ function CheckoutForm() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   function onSubmit(data: CheckoutFormInputsType) {
     console.log(data);
     navigate("/cart/order-complete");
+    dispatch(setCurrentCartPage(2))
   }
 
   return (

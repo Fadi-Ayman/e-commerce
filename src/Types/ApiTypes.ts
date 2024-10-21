@@ -1,12 +1,19 @@
 import { ProductType } from "./ProductTypes";
 
+export type PaymentMethods = "pay-on-delivery" | "credit-card";
+export type Status = "delevered" | "pending";
+
 export type ApiOrders = {
   id: string;
   userId: string;
   createdAt: string;
+  paymentMethod: PaymentMethods;
   date: string;
-  status: "delevered" | "pending";
-  price: number;
+  status: Status
+  totalPrice: number;
+  product: Pick<ProductType, "id" | "name" | "image" | "price">&{
+    quantity:number
+  }[]
 }
 
 export type WishListApi = {
@@ -16,12 +23,6 @@ export type WishListApi = {
   product: Pick<ProductType,"id"|"name"|"image"|"price">
 }
 
-export type CartApi = {
-  id: string;
-  createdAt: string;
-  product: Pick<ProductType,"id"|"name"|"image"|"price">& {
-    quantity: number,
-    totalPrice: number
-  }
-}
+
+
 

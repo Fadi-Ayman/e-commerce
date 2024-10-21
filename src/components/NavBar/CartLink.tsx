@@ -1,12 +1,16 @@
 import { Badge, IconButton } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
 
 // From Store
-const cartCount: number = 12;
 
 function CartLink() {
   const navigate = useNavigate();
+  const cartCount = useSelector(
+    (state: RootState) => state.Cart.cartList.length
+  );
 
   return (
     <IconButton

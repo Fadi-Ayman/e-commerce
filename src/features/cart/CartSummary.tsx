@@ -3,11 +3,17 @@ import { theme } from "../../styles/theme";
 import { useNavigate } from "react-router-dom";
 import PaymentMethods from "../../components/OneUseComponents/PaymentMethods";
 import TotalAndSubTotalPrice from "../../components/OneUseComponents/TotalAndSubTotalPrice";
+import { useDispatch } from "react-redux";
+import { setCurrentCartPage } from "../../store/CartSlice";
 
 function CartSummary() {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+
   const handleCheckout = () => {
     navigate("/cart/checkout");
+    dispatch(setCurrentCartPage(1))
   };
 
   return (
@@ -49,6 +55,7 @@ function CartSummary() {
           gap: {xs:"2rem",md:"2.5rem"},
         }}
       >
+        
         <PaymentMethods />
 
         <TotalAndSubTotalPrice />

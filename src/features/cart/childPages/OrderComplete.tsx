@@ -4,7 +4,10 @@ import OrderCompleteItem from "../../../components/OneUseComponents/OrderComplet
 import Carousel from "../../../components/Carousel";
 import { SwiperSlide } from "swiper/react";
 import OrderCompleteOrderDetails from "../../../components/OneUseComponents/OrderCompleteOrderDetails";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import {  useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+
 
 const orederCompletebreakpoints = {
   0: {
@@ -28,11 +31,26 @@ const orederCompletebreakpoints = {
     spaceBetween: 1,
   },
 };
+const currentPage = 2;
 
 function OrderComplete() {
-  // Protect Route Needed
+  const navigate = useNavigate();
+  const cartList = useSelector((state: RootState) => state.Cart.cartList);
+  const storeCurrentPage = useSelector(
+    (state: RootState) => state.Cart.currentCartPage
+  );
 
-  const navigate = useNavigate()
+  // Protect Route Needed
+  // This page Data From server , because of order Id
+
+
+
+
+
+
+
+  
+  if (storeCurrentPage !== currentPage) return <Navigate to="/cart" />;
 
   return (
     <Paper
@@ -81,44 +99,43 @@ function OrderComplete() {
 
       {/* Order Complete List */}
       <Carousel width="70%" breakpoints={orederCompletebreakpoints}>
-        <SwiperSlide style={{ width: "100%", backgroundColor: "transparent" }}>
-          <OrderCompleteItem quantity={10} image="/Card.png" name="name" />
-        </SwiperSlide>
-        <SwiperSlide style={{ width: "100%", backgroundColor: "transparent" }}>
-          <OrderCompleteItem quantity={1} image="/Card.png" name="name" />
-        </SwiperSlide>
-        <SwiperSlide style={{ width: "100%", backgroundColor: "transparent" }}>
-          <OrderCompleteItem quantity={1} image="/Card.png" name="name" />
-        </SwiperSlide>
-        <SwiperSlide style={{ width: "100%", backgroundColor: "transparent" }}>
-          <OrderCompleteItem quantity={1} image="/Card.png" name="name" />
-        </SwiperSlide>
-        <SwiperSlide style={{ width: "100%", backgroundColor: "transparent" }}>
-          <OrderCompleteItem quantity={1} image="/Card.png" name="name" />
-        </SwiperSlide>
-        <SwiperSlide style={{ width: "100%", backgroundColor: "transparent" }}>
-          <OrderCompleteItem quantity={1} image="/Card.png" name="name" />
-        </SwiperSlide>
+        {cartList.map((product) => (
+          <SwiperSlide
+            style={{ width: "100%", backgroundColor: "transparent" }}
+          >
+            <OrderCompleteItem
+              key={product.id}
+              quantity={product.quantity}
+              image={product.image}
+              name={product.name}
+            />
+          </SwiperSlide>
+        ))}
       </Carousel>
 
       {/* Order Details */}
 
-      <OrderCompleteOrderDetails />
+      <OrderCompleteOrderDetails
+        id={"23123"}
+        date={new Date().toDateString()}
+        totalPrice={15324523}
+        paymentMethod={"pay-on-delivery"}
+      />
 
       {/* Orders History Button */}
 
       <Button
         variant="contained"
-        onClick={()=>navigate("/settings/orders")}
+        onClick={() => navigate("/settings/orders")}
         sx={{
           width: "100%",
           maxWidth: "250px",
           backgroundColor: "black",
           padding: "0.6rem 0.3rem",
-          textTransform:"capitalize",
-          fontSize:"1rem",
-          borderRadius:"50px",
-          mt:{xs:"1rem",md:"2rem"},
+          textTransform: "capitalize",
+          fontSize: "1rem",
+          borderRadius: "50px",
+          mt: { xs: "1rem", md: "2rem" },
         }}
       >
         Orders History

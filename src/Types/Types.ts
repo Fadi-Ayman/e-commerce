@@ -1,4 +1,5 @@
 import { ApiOrders } from "./ApiTypes";
+import { ProductType } from "./ProductTypes";
 
 export type NavLink = {
   label: string;
@@ -29,4 +30,14 @@ export type CartListHeaderLabelsType = [
 ];
 export type OrderListHeaderLabelsType = ["Order Id", "Date", "Status", "Price"];
 
-export type OrdersRowsType = Pick<ApiOrders, "id" | "date" | "status" | "price">
+export type OrdersRowsType = Pick<
+  ApiOrders,
+  "id" | "date" | "status" | "totalPrice"
+>;
+
+export type CartItemType = Pick<ProductType, "id" | "name" | "image" | "price"> &
+  {
+    quantity: number;
+    subTotal: number;
+  }
+
