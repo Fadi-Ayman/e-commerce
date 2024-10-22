@@ -9,10 +9,7 @@ import { useSelector } from "react-redux";
 
 
 function CartTable() {
-
   const  cartList  = useSelector((state: RootState) => state.Cart.cartList);
- 
-
   const isEmptyCart = cartList.length === 0;
 
   return (
@@ -32,7 +29,7 @@ function CartTable() {
       }}
     >
       {isEmptyCart ? (
-        <EmptyDataMsg withGoBack message="Your Cart is Empty" />
+        <EmptyDataMsg withGoHome message="Your Cart is Empty" />
       ) : (
         <>
           <CustomTable

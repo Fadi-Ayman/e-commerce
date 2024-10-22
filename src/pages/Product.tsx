@@ -32,11 +32,11 @@ function Product() {
     <>
       <Box
         sx={{
-          width: { xs: "90%", sm: "75%", md: "90%", lg: "80%", xl: "75%" },
+          width: { xs: "90%", sm: "75%", md: "90%", lg: "80%", xl: "70%" },
           mx: "auto",
           display: "flex",
           flexDirection: "column",
-          gap: { xs: "2rem", md: "3.5rem" },
+          gap: { xs: "2.5rem", md: "4rem" },
           justifyContent: "start",
           alignItems: "center",
           my: { xs: "2rem", lg: "3rem" },

@@ -119,12 +119,11 @@ export default function DrawerNav() {
         sx={{
           mr: "2px",
           display: { sm: "flex", md: "none" },
-          height: "50px",
-          width: "50px",
+          padding: "0rem",
         }}
         onClick={toggleDrawer(true)}
       >
-        <MenuIcon />
+        <MenuIcon sx={{width:"1.8rem",height:"1.8rem" , mb:"0.2rem" ,mx:"0.5rem "}}  />
       </IconButton>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}

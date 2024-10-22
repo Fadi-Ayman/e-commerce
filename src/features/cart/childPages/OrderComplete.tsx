@@ -5,8 +5,10 @@ import Carousel from "../../../components/Carousel";
 import { SwiperSlide } from "swiper/react";
 import OrderCompleteOrderDetails from "../../../components/OneUseComponents/OrderCompleteOrderDetails";
 import { Navigate, useNavigate } from "react-router-dom";
-import {  useSelector } from "react-redux";
+import {  useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { useEffect } from "react";
+import { resetCartDataList } from "../../../store/CartSlice";
 
 
 const orederCompletebreakpoints = {
@@ -39,13 +41,16 @@ function OrderComplete() {
   const storeCurrentPage = useSelector(
     (state: RootState) => state.Cart.currentCartPage
   );
+  const dispatch = useDispatch();
 
-  // Protect Route Needed
   // This page Data From server , because of order Id
 
 
 
-
+  // Reset cart Data at last Page
+  useEffect(() =>{
+    dispatch(resetCartDataList());
+  },[dispatch])
 
 
 
@@ -101,6 +106,7 @@ function OrderComplete() {
       <Carousel width="70%" breakpoints={orederCompletebreakpoints}>
         {cartList.map((product) => (
           <SwiperSlide
+          key={product.id}
             style={{ width: "100%", backgroundColor: "transparent" }}
           >
             <OrderCompleteItem
@@ -117,7 +123,7 @@ function OrderComplete() {
 
       <OrderCompleteOrderDetails
         id={"23123"}
-        date={new Date().toDateString()}
+        createdAt={new Date().toDateString()}
         totalPrice={15324523}
         paymentMethod={"pay-on-delivery"}
       />

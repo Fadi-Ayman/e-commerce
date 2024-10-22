@@ -68,7 +68,6 @@ function ProductInfo({
         name={name}
         price={price}
         id={id}
-        
       />
     </Box>
   );

@@ -8,8 +8,8 @@ function UserSettingsSideBar() {
     <Box
       component={"aside"}
       sx={{
-        width: " 100%",
-        height: { xs: "100%", md: "fit-content" },
+        width: "100%",
+        height:  "100%",
         bgcolor: theme.palette.grey[100],
         display: "flex",
         flexDirection: "column",
@@ -19,6 +19,7 @@ function UserSettingsSideBar() {
         padding: "4rem 2rem",
         mx: "auto",
         borderRadius: "10px",
+        fontWeight:"500"
       }}
     >
 

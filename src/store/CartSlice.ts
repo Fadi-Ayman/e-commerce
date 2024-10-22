@@ -48,11 +48,16 @@ export const cartSlice = createSlice({
       state.currentCartPage = action.payload;
     },
 
-    resetCartData: (state) => {
+    resetCartDataList: (state) => {
       state.cartList = initialState.cartList;
-      state.currentCartPage = initialState.currentCartPage;
       state.paymentMethod = initialState.paymentMethod;
     },
+
+    resetEntireCartData: (state) => {
+      state.currentCartPage = initialState.currentCartPage;
+      state.cartList = initialState.cartList;
+      state.paymentMethod = initialState.paymentMethod;
+    }
   },
 });
 
@@ -62,7 +67,8 @@ export const {
   removeFromCart,
   setPaymentMethod,
   setCurrentCartPage,
-  resetCartData,
+  resetCartDataList,
+  resetEntireCartData
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

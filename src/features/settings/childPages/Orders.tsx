@@ -41,7 +41,7 @@ function Orders() {
               <OrderItemRow
                 key={i}
                 id={order.id}
-                date={order.date}
+                createdAt={order.createdAt}
                 status={order.status}
                 totalPrice={order.totalPrice}
               />

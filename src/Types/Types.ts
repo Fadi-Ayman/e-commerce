@@ -32,7 +32,7 @@ export type OrderListHeaderLabelsType = ["Order Id", "Date", "Status", "Price"];
 
 export type OrdersRowsType = Pick<
   ApiOrders,
-  "id" | "date" | "status" | "totalPrice"
+  "id" | "createdAt" | "status" | "totalPrice"
 >;
 
 export type CartItemType = Pick<ProductType, "id" | "name" | "image" | "price"> &

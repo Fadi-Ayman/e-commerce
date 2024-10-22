@@ -9,11 +9,9 @@ function NavIconList() {
     <List
       sx={{
         display: "flex",
-        flexGrow: 1,
-        maxWidth: "20rem",
-        width: "20%",
-        justifyContent: "end",
+        width: "100%",
         gap: "0.2rem",
+        placeContent: "end",
       }}
       component={"ul"}
       color="inherit"

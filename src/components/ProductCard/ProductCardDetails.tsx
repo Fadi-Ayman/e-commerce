@@ -33,6 +33,7 @@ function ProductCardDetails({
       />
       {/* Product Name */}
       <CardContent
+
         sx={{
           padding: isInSlider
             ? "0px 0.4rem !important"
@@ -42,6 +43,7 @@ function ProductCardDetails({
             md: "12px !important",
             lg: "15px !important",
           },
+          textTransform:"capitalize"
         }}
       >
         <Typography

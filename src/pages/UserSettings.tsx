@@ -7,6 +7,7 @@ function UserSettings() {
     <Box
       sx={{
         margin: {xs:"2rem 1rem",md:"2rem"},
+        height: "100%",
         overflow: "hidden",
         display: "grid",
         justifyContent: "start",

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import {  useNavigate } from "react-router-dom";
 
-function EmptyDataMsg({ message,withGoBack = false }: { message: string, withGoBack?: boolean }) {
+function EmptyDataMsg({ message,withGoBack = false ,withGoHome = false}: { message: string, withGoBack?: boolean ,withGoHome?: boolean}) {
   const navigate = useNavigate();
 
   return (
@@ -32,6 +32,15 @@ function EmptyDataMsg({ message,withGoBack = false }: { message: string, withGoB
         onClick={() => navigate(-1)}
       >
         Go back
+      </Typography>}
+
+      {withGoHome && <Typography
+        component={"span"}
+        variant="body1"
+        sx={{ cursor: "pointer", textDecoration: "underline" }}
+        onClick={() => navigate("/")}
+      >
+        Go Home
       </Typography>}
     </Box>
   );

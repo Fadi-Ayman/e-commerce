@@ -3,7 +3,7 @@ import { theme } from "../../styles/theme";
 import { useLocation } from "react-router-dom";
 
 type NavbarContainerProps = {
-  children: JSX.Element;
+  children: React.ReactNode;
 };
 
 function NavbarContainer({ children }: NavbarContainerProps) {
@@ -29,11 +29,13 @@ function NavbarContainer({ children }: NavbarContainerProps) {
     >
       <List
         sx={{
-          display: "flex",
+          display: "grid",
+          gridTemplateColumns: { xs: "repeat(2,1fr)", md: "repeat(3,1fr)" },
           width: "100%",
           height: "100%",
-          justifyContent: "space-between",
-          alignItems: "center",
+          alignContent: "center",
+          gap: "1.5rem",
+
           padding: {
             xs: "0 1rem",
             sm: "0 2rem",

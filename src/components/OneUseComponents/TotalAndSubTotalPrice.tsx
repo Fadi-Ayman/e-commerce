@@ -8,9 +8,11 @@ import { useLocation } from "react-router-dom";
 function TotalAndSubTotalPrice() {
   const pathname = useLocation().pathname;
   const cartList = useSelector((state: RootState) => state.Cart.cartList);
-  
-  
-  const subTotal = cartList.reduce((total, product) => total + product.subTotal, 0);
+
+  const subTotal = cartList.reduce(
+    (total, product) => total + product.subTotal,
+    0
+  );
   const totalPrice = subTotal + shippingPrice;
 
   return (
@@ -20,14 +22,17 @@ function TotalAndSubTotalPrice() {
         flexDirection: "column",
         gap: "1rem",
         width: "100%",
-        position:"sticky",
-        bottom:"0",
-        bgcolor:"grey.50",
-        zIndex:"9999",
-        padding:pathname === "/cart/checkout" ? "1rem": "0rem"
+        position: "sticky",
+        bottom: "0",
+        bgcolor: "grey.50",
+        zIndex: "9999",
+        padding: pathname === "/cart/checkout" ? "1rem" : "0rem",
+        borderTop:
+          pathname === "/cart/checkout"
+            ? { xs: "1px solid black", md: "1.5px solid black" }
+            : "none",
       }}
     >
-
       <Box
         component={"div"}
         sx={{
@@ -47,7 +52,17 @@ function TotalAndSubTotalPrice() {
           }}
         >
           Subtotal
-          <span style={{ marginLeft: "0.4rem",color:"grey",fontSize:"12px" ,verticalAlign:"middle"}}> +shipping</span>
+          <span
+            style={{
+              marginLeft: "0.4rem",
+              color: "grey",
+              fontSize: "12px",
+              verticalAlign: "middle",
+            }}
+          >
+            {" "}
+            +shipping
+          </span>
         </Typography>
 
         <Typography

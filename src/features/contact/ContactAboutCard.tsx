@@ -12,7 +12,7 @@ function ContactAboutCard() {
       component={"section"}
       sx={{
         width: "100%",
-        height: { xs: "40rem", sm: "20rem", md: "30rem", lg: "32rem" },
+        height: { xs: "45rem", sm: "22.5rem", md: "32rem", lg: "34rem" },
         mx: "auto",
         minHeight: { xs: "40rem", sm: "20rem", md: "30rem", lg: "32rem" },
         mt: { xs: "2.5rem", md: "3rem" },
@@ -26,8 +26,8 @@ function ContactAboutCard() {
       {/* Section Image */}
       <Box
         sx={{
-          width: { xs: "100%", sm: "120%", lg: "120%" },
-          height: { xs: "20rem", sm: "20rem", md: "30rem", lg: "32rem" },
+          width: "100%",
+          height: "100%",
           order: { xs: 2, sm: 1 },
         }}
       >
@@ -42,18 +42,18 @@ function ContactAboutCard() {
       <Box
         sx={{
           width: "100%",
-          height: { xs: "20rem", sm: "20rem", md: "30rem", lg: "32rem" },
+          height: {xs:"fit-content",sm:"100%"},
           order: { xs: 1, sm: 2 },
           display: "flex ",
           flexDirection: "column",
           gap: { xs: "0.5rem", sm: "0.5rem", md: "1rem", lg: "2rem" },
-          justifyContent: { xs: "start", sm: "center" },
+          justifyContent: { xs: "center", sm: "center" },
 
           padding: {
-            xs: "10% 10%",
-            sm: "5% 5%",
+            xs: "1.5rem 1.5rem",
+            sm: "7% 6%",
             md: "6% 6%",
-            lg: "8% 8%",
+            lg: "7% 7%",
           },
           bgcolor: theme.palette.grey[200],
         }}
@@ -88,7 +88,15 @@ function ContactAboutCard() {
             fontWeight: { xs: "500", md: "500", lg: "400" },
           }}
         >
-          {brandName} is a lifestyle store in Egypt, offering a diverse range of
+          <span
+            style={{
+              fontWeight: "bold",
+              letterSpacing: "1px",
+            }}
+          >
+            {brandName}
+          </span>{" "}
+          is a lifestyle store in Egypt, offering a diverse range of
           electronics, furniture, shoes, and clothing. Established in 2024, our
           dedicated customer service team is here to assist you 24/7, ensuring
           you find everything you need for a stylish and functional life.

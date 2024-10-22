@@ -39,6 +39,7 @@ export default function NavigationCarousel({
         gridRow: "1/4",
         borderRadius: "10px",
         overflow: "hidden",
+        aspectRatio: 1/1.2,
       }}
       navigation={true}
       modules={[Navigation]}

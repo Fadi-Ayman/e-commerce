@@ -1,4 +1,4 @@
-import { Box, Divider } from "@mui/material";
+import { Box } from "@mui/material";
 
 function OrderSummaryList({ children }: { children: React.ReactNode }) {
   return (
@@ -11,7 +11,6 @@ function OrderSummaryList({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
-      <Divider/>
     </Box>
   );
 }

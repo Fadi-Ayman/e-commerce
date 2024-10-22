@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { formateCurrency } from "../../utils/helpers";
 import QuantityInput from "../QuantityInput";
 import { CartItemType } from "../../Types/Types";
@@ -25,6 +25,10 @@ function OrderSummaryItem({ id,name, image, quantity, subTotal }: OrderSummaryIt
           display: "flex",
           alignItems: "center",
           padding: "1rem 0rem",
+          borderBottom: "1px solid grey",
+          "&:last-of-type": {
+            borderBottom: "none",
+          },
         }}
       >
         {/* Product Details */}
@@ -34,6 +38,7 @@ function OrderSummaryItem({ id,name, image, quantity, subTotal }: OrderSummaryIt
             display: "flex",
             gap: "1rem",
             alignItems: "center",
+
           }}
         >
           {/* Image */}
@@ -55,7 +60,7 @@ function OrderSummaryItem({ id,name, image, quantity, subTotal }: OrderSummaryIt
               justifyContent: "start",
             }}
           >
-            <Typography sx={{ fontWeight: "500" }}>{name}</Typography>
+            <Typography sx={{ fontWeight: "500"   ,textTransform:"capitalize" }}>{name}</Typography>
 
             <QuantityInput quantity={quantity} setQuantity={handleSetQuantity} />
           </Box>
@@ -68,7 +73,6 @@ function OrderSummaryItem({ id,name, image, quantity, subTotal }: OrderSummaryIt
         </Typography>
       </Box>
 
-      <Divider />
     </>
   );
 }

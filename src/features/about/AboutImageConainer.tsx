@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { theme } from "../../styles/theme";
+import { brandName } from "../../utils/constants";
 
 function AboutImageConainer() {
   return (
@@ -8,7 +9,7 @@ function AboutImageConainer() {
       sx={{
         overflow: "hidden",
         height: { xs: "33vh", sm: "45vh", lg: "55vh" },
-        minHeight:"10rem",
+        minHeight: "10rem",
         width: "100%",
         bgcolor: theme.palette.grey[100],
         display: "flex",
@@ -37,12 +38,12 @@ function AboutImageConainer() {
           alignItems: "center",
           justifyContent: "center",
           gap: "0.5rem",
-          padding: "0rem 2rem 3rem 2rem",
+          padding: "0rem 2.2rem 3rem 2.2rem",
         }}
       >
         <Typography
           component={"h3"}
-          sx={{ fontSize: { xs: "2rem", sm:"2.8rem", md: "4rem" } }}
+          sx={{ fontSize: { xs: "2rem", sm: "2.8rem", md: "4rem" } }}
         >
           About Us
         </Typography>
@@ -56,8 +57,9 @@ function AboutImageConainer() {
             fontWeight: { xs: "400", md: "500" },
           }}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, vero
-          iure odit .
+          At <span style={{ fontWeight: "bold" }}>{brandName}</span>, explore a
+          diverse range of quality products for all your needs. Enjoy seamless
+          shopping!
         </Typography>
       </Box>
     </Box>

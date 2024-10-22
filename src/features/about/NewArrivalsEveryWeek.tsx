@@ -25,13 +25,11 @@ function NewArrivalsEveryWeek() {
       <Box
         sx={{
           width: { xs: "100%", lg: "90%" },
-          // height: { xs: "20rem", sm: "20rem", md: "30rem", lg: "32rem" },
           height:"100%",
           order: { xs: 2, sm: 1 },
         }}
       >
         <img
-          loading="lazy"
           style={{ width: "100%", height: "100%", objectFit: "fill" }}
           src="/newArrivalEveryWeek.png"
           alt="promotion"
@@ -42,7 +40,6 @@ function NewArrivalsEveryWeek() {
       <Box
         sx={{
           width: "100%",
-          // height: { xs: "20rem", sm: "20rem", md: "30rem", lg: "32rem" },
           height:"100%",
           order: { xs: 1, sm: 2 },
           display: "flex ",

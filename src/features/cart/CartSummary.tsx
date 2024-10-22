@@ -1,17 +1,27 @@
-import { Box, Button, Typography } from "@mui/material";
-import { theme } from "../../styles/theme";
+import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PaymentMethods from "../../components/OneUseComponents/PaymentMethods";
 import TotalAndSubTotalPrice from "../../components/OneUseComponents/TotalAndSubTotalPrice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentCartPage } from "../../store/CartSlice";
+import { RootState } from "../../store/store";
+import toast from "react-hot-toast";
+import CartSummaryButtons from "./CartSummaryButtons";
 
 function CartSummary() {
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const selectedPaymanetMethod = useSelector(
+    (state: RootState) => state.Cart.paymentMethod
+  )
 
 
   const handleCheckout = () => {
+    if(!selectedPaymanetMethod) {
+      toast.error("Please select a payment method")
+      return
+    }
+    
     navigate("/cart/checkout");
     dispatch(setCurrentCartPage(1))
   };
@@ -60,19 +70,7 @@ function CartSummary() {
 
         <TotalAndSubTotalPrice />
 
-        <Button
-          variant="contained"
-          sx={{
-            bgcolor: theme.palette.grey[700],
-            padding: "0.5rem 1.5rem",
-            minWidth: "100%",
-            fontSize: "1rem",
-            textTransform: "capitalize",
-          }}
-          onClick={handleCheckout}
-        >
-          Checkout
-        </Button>
+        <CartSummaryButtons handleCheckout={handleCheckout} />
       </Box>
     </Box>
   );

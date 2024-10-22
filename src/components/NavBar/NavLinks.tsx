@@ -1,12 +1,10 @@
 import { Button, List, ListItem } from "@mui/material";
 import { Link } from "react-router-dom";
-import { NavLink } from "../../Types/Types";
+import { linksList } from "../../utils/constants";
 
-type NavLinksProps = {
-  linksList: NavLink[];
-};
 
-function NavLinks({ linksList }: NavLinksProps) {
+
+function NavLinks() {
   return (
     <List
       component={"ul"}
@@ -17,8 +15,9 @@ function NavLinks({ linksList }: NavLinksProps) {
         },
         fontSize: "0.9rem",
         fontWeight: "600",
-        paddingInlineStart: {md:"15%" ,lg:"18%"},
         gap: { xs: "1rem" },
+        justifySelf: "center",
+
       }}
     >
       {linksList.map((link, i) => (
@@ -26,7 +25,7 @@ function NavLinks({ linksList }: NavLinksProps) {
           sx={{
             fontSize: "inherit",
             fontWeight: "inherit",
-            "&:hover": { transform: "scale(1.02,1.02) translate(3px,-3px)" },
+            "&:hover": { transform: "scale(1.02,1.02) translate(0px,-2px)" },
             transition: "0.3s",
           }}
           color="inherit"

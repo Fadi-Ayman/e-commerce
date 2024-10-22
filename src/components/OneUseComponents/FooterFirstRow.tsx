@@ -1,6 +1,7 @@
 import { Box, Divider, List, ListItem, Typography } from "@mui/material";
-import { brandName, linksList } from "../../utils/constants";
+import { linksList } from "../../utils/constants";
 import { Link } from "react-router-dom";
+import Logo from "../Logo";
 
 function FooterFirstRow() {
   return (
@@ -18,20 +19,29 @@ function FooterFirstRow() {
       <Box
         sx={{
           display: "flex",
-          gap: { xs: "1.2rem", md: "2rem" },
+          gap: { xs: "1rem", md: "1.5rem" },
           flexDirection: { xs: "column", md: "row" },
-          justifyContent: "space-between",
+          justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Typography variant="h5" component={"h5"}>
-          {brandName}
-        </Typography>
+        <Logo
+          color="white"
+          width={{ xs: "100px", md: "100px" }}
+          height={{ xs: "25px", md: "25px" }}
+        />
 
         <ResponsiveDivider />
 
-        <Typography variant="body2" component={"p"}>
-          Department Store
+        <Typography
+          sx={{
+            textTransform: "capitalize",
+            fontSize: "0.9rem",
+            fontWeight: "500",
+          }}
+          component={"p"}
+        >
+          multi-category store
         </Typography>
       </Box>
 
@@ -94,7 +104,7 @@ function ResponsiveDivider() {
         sx={{
           bgcolor: "grey.200",
           display: { xs: "block", md: "none" },
-          width: "40px",
+          width: "80%",
           alignSelf: "center",
         }}
         orientation="horizontal"

@@ -3,12 +3,12 @@ import { formateCurrency } from "../../utils/helpers";
 import { ApiOrders } from "../../Types/ApiTypes";
 
 
-type OrderCompleteOrderDetailsType = Pick<ApiOrders,"id"|"date"|"totalPrice"|"paymentMethod"> 
+type OrderCompleteOrderDetailsType = Pick<ApiOrders,"id"|"createdAt"|"totalPrice"|"paymentMethod"> 
 
 
 function OrderCompleteOrderDetails({
   id,
-  date,
+  createdAt:date,
   totalPrice,
   paymentMethod,}:OrderCompleteOrderDetailsType) {
   return (

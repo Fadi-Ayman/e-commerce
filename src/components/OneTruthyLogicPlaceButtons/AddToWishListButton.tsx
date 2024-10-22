@@ -68,7 +68,7 @@ function AddToWishListButton({
         gap: "1rem",
         gridRow: gridRow,
         gridColumn: gridColumn,
-        padding: "0.6rem 0.5rem ",
+        padding: {xs:"0.6rem 1rem",lg:"0.6rem 0.5rem"},
         borderRadius: "10px",
         "&:hover": { scale: "1.02 1.02" },
         transition: "0.2s",

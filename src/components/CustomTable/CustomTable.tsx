@@ -24,7 +24,7 @@ function CustomTable({
       sx={{
         width: "100%",
         border: "solid 2px",
-        minHeight: "30rem",
+        minHeight: {xs:"fit-content",md:"30vh"},
         maxHeight: {xs:"fit-content",md:"64.5vh"},
         borderColor: borderColor,
         borderRadius: "5px",

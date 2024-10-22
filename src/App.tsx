@@ -1,6 +1,6 @@
 import { theme, ThemeProvider, CssBaseline } from "./styles/theme";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
+import  { Toaster } from "react-hot-toast";
 
 // Pages
 import AppLayout from "./components/LayoutComponents/AppLayout";
@@ -22,7 +22,20 @@ import OrderComplete from "./features/cart/childPages/OrderComplete";
 import CartTable from "./features/cart/childPages/CartTable";
 import Product from "./pages/Product";
 
+
 function App() {
+  // Enforce Limit to TOAST_LIMIT
+
+  // const { toasts } = useToasterStore()
+  // const TOAST_LIMIT = 5
+
+  // useEffect(() => {
+  //   toasts
+  //     .filter(t => t.visible)
+  //     .filter((_item, i) => i >= TOAST_LIMIT) 
+  //     .forEach(t => toast.dismiss(t.id)) 
+  // }, [toasts])
+
   return (
     <ThemeProvider theme={theme}>
       {/* Baseline For Theme Provider By MUI */}
@@ -39,7 +52,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
 
             <Route path="/cart" element={<Cart />}>
-              <Route index element={<Navigate  to="/cart/table" />} />
+              <Route index element={<Navigate replace to="/cart/table" />} />
               <Route path="/cart/table"   element={<CartTable />} />
               <Route path="/cart/checkout"  element={<Checkout />} />
               <Route path="/cart/order-complete"  element={<OrderComplete />} />
@@ -71,10 +84,10 @@ function App() {
         gutter={8}
         toastOptions={{
           success: {
-            duration: 3000,
+            duration: 2000,
           },
           error: {
-            duration: 5000,
+            duration: 4000,
           },
         }}
       />

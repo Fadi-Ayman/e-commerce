@@ -8,7 +8,7 @@ import {
 
 export const bestSellerMaxCount: number = 8;
 export const productsCarouselMaxCount: number = 10;
-export const brandName = "Logo";
+export const brandName = "Vario";
 export const dayTimerDate = new Date("2025-06-01").toISOString();
 export const currency = "USD"
 export const shippingPrice = 200    // To Calculate Total Price in Cart

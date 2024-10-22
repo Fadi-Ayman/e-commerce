@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { OrdersRowsType } from "../../Types/Types";
 import { formateCurrency } from "../../utils/helpers";
 
-function OrderItemRow({ id, date, status, totalPrice }: OrdersRowsType) {
+function OrderItemRow({ id, createdAt :date, status, totalPrice }: OrdersRowsType) {
   return (
     <>
       <Typography

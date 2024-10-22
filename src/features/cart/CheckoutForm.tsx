@@ -4,8 +4,10 @@ import ShippingAddressForm from "./ShippingAddressForm";
 import { theme } from "../../styles/theme";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentCartPage } from "../../store/CartSlice";
+import { RootState } from "../../store/store";
+import { ApiOrders } from "../../Types/ApiTypes";
 
 export type CheckoutFormInputsType = {
   firstName: string;
@@ -28,6 +30,13 @@ const initialValues: CheckoutFormInputsType = {
 };
 
 function CheckoutForm() {
+  const cartList = useSelector((state: RootState) => state.Cart.cartList);
+  const paymentMethodstate = useSelector((state: RootState) => state.Cart.paymentMethod);
+  const cartTotalPrice = cartList.reduce(
+    (total, item) => total + item.subTotal ,0
+  )
+
+
   const {
     register,
     handleSubmit,
@@ -41,8 +50,20 @@ function CheckoutForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
-  function onSubmit(data: CheckoutFormInputsType) {
-    console.log(data);
+
+
+  function onSubmit(FormData: CheckoutFormInputsType) {
+
+    const orderData: Omit<ApiOrders, "id"| "createdAt"> = {
+      status: "pending",
+      totalPrice: cartTotalPrice,
+      paymentMethod: paymentMethodstate,
+      userCart: cartList,
+      user: {...FormData , id:"321" }
+    }
+    
+    // Send Order Request includes ( cartListData , userDetails from form )
+    console.log(orderData)
     navigate("/cart/order-complete");
     dispatch(setCurrentCartPage(2))
   }

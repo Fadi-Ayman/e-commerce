@@ -44,13 +44,14 @@ function SettingsAsideLinks() {
       <FormControl sx={{ display: { xs: "", md: "none" } }} fullWidth>
         <InputLabel id="demo-simple-select-label">Page</InputLabel>
         <Select
+          sx={{ fontWeight: "500" }}
           id="demo-simple-select"
           value={selectValue}
           label="Page"
           onChange={handleSelectPageChange}
         >
           {SettingsAsideLinksArray.map((link, i) => (
-            <MenuItem key={i} value={link.href}>
+            <MenuItem sx={{ fontWeight: "500" }} key={i} value={link.href}>
               {link.label}
             </MenuItem>
           ))}
@@ -58,12 +59,12 @@ function SettingsAsideLinks() {
       </FormControl>
 
       {/* From Medium(md) to XLarge(lg) */}
-      <List sx={{ width: "100%", display: { xs: "none", md: "block" } }}>
+      <List sx={{ width: "100%", display: { xs: "none", md: "block" }  }}>
         {SettingsAsideLinksArray.map((link, i) => (
           <ListItem
             disablePadding
             sx={{
-              borderBottom: pathName === link.href ? "1px solid black" : "",
+              borderBottom: pathName === link.href ? "1.5px solid black" : "",
               mt: "0.5rem",
             }}
             key={i}
@@ -72,7 +73,7 @@ function SettingsAsideLinks() {
               component={"button"}
               onClick={() => navigate(link.href)}
             >
-              <ListItemText primary={link.label} />
+              <ListItemText   primary={link.label} />
             </ListItemButton>
           </ListItem>
         ))}
