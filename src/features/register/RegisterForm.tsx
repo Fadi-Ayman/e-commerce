@@ -16,13 +16,10 @@ import { useNavigate } from "react-router-dom";
 import AgreementsCheckBox from "./AgreementsCheckBox";
 import { useForm } from "react-hook-form";
 import { theme } from "../../styles/theme";
+import useRegister from './../../hooks/authHooks/useRegister';
+import { RegisterFormInputs } from "../../Types/ApiTypes";
 
-type RegisterFormInputs = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-};
+
 
 const RegisterFormInitialValues: RegisterFormInputs = {
   firstName: "",
@@ -36,6 +33,7 @@ function RegisterForm() {
   const [isAgreedLegalTemrs, setIsAgreedLegalTemrs] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const id = useId();
+  const {Register, isRegistering} = useRegister()
 
   const {
     register,
@@ -44,7 +42,7 @@ function RegisterForm() {
   } = useForm<RegisterFormInputs>({ defaultValues: RegisterFormInitialValues });
 
   function onSubmit(data: RegisterFormInputs) {
-    console.log(data);
+    Register(data)
   }
 
   const handleClickShowPassword = () =>
@@ -111,7 +109,7 @@ function RegisterForm() {
           maxLength: { value: 10, message: "Maximum length should be 10" },
           pattern: {
             value: /^[A-Za-z]+$/,
-            message: "Only letters are allowed",
+            message: "Only letters are allowed, without spaces",
           },
         })}
         helperText={errors.firstName && errors.firstName.message}
@@ -121,6 +119,7 @@ function RegisterForm() {
         label="First Name"
         variant="standard"
         autoComplete="on"
+        disabled={isRegistering}
         sx={{
           padding: { xs: "0", md: "0.3rem 0rem" },
           "& .MuiInputBase-input": {
@@ -138,7 +137,7 @@ function RegisterForm() {
           maxLength: { value: 10, message: "Maximum length should be 10" },
           pattern: {
             value: /^[A-Za-z]+$/,
-            message: "Only letters are allowed",
+            message: "Only letters are allowed, without spaces",
           },
         })}
         helperText={errors.lastName && errors.lastName.message}
@@ -148,6 +147,8 @@ function RegisterForm() {
         label="Last Name"
         variant="standard"
         autoComplete="on"
+        disabled={isRegistering}
+
         sx={{
           padding: { xs: "0", md: "0.3rem 0rem" },
           "& .MuiInputBase-input": {
@@ -173,6 +174,8 @@ function RegisterForm() {
         label="Email Address"
         variant="standard"
         autoComplete="on"
+        disabled={isRegistering}
+
         sx={{
           padding: { xs: "0", md: "0.3rem 0rem" },
           "& .MuiInputBase-input": {
@@ -204,6 +207,8 @@ function RegisterForm() {
           }}
           id={id + "password"}
           type={showPassword ? "text" : "password"}
+          disabled={isRegistering}
+
           endAdornment={
             <InputAdornment position="end" sx={{ marginRight: "0.2rem" }}>
               <IconButton
@@ -225,6 +230,7 @@ function RegisterForm() {
       <AgreementsCheckBox
         isAgreedLegalTemrs={isAgreedLegalTemrs}
         setIsAgreedLegalTemrs={setIsAgreedLegalTemrs}
+        disabled={isRegistering}
       />
 
       {/* Submit */}
@@ -238,7 +244,7 @@ function RegisterForm() {
           mt: "0.5rem",
         }}
         type="submit"
-        disabled={!isAgreedLegalTemrs}
+        disabled={!isAgreedLegalTemrs || isRegistering}
       >
         Sign Up
       </Button>

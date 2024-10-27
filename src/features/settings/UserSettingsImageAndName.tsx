@@ -1,13 +1,12 @@
-import { useState } from "react";
 import { Avatar, Box, IconButton, Typography } from "@mui/material";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import toast from "react-hot-toast";
+import { uploadImage } from "../../servcies/userApi";
 
 const name = "Fady Ayman";
 const image = "/fakeUserImage.png";
 
 function UserSettingsImageAndName() {
-  const [src, setSrc] = useState(image);
 
   function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
     const files = event.target.files;
@@ -23,13 +22,10 @@ function UserSettingsImageAndName() {
 
       const formData = new FormData();
       formData.append("image", file);
-      // sendToApi(formData); // Implement your API call function
+      uploadImage(formData, file.name);
 
-      setSrc(URL.createObjectURL(file));
-      toast.success(`Image ${file.name} uploaded successfully`);
-    } else {
-      toast.error("No file selected");
     }
+
   }
 
   return (
@@ -50,7 +46,7 @@ function UserSettingsImageAndName() {
             width: "100%",
             height: "100%",
           }}
-          src={src}
+          src={image}
           imgProps={{
             style: {
               objectFit: "cover",

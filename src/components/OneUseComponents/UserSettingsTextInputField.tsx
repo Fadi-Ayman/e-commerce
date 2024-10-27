@@ -57,8 +57,8 @@ const TextInputField: React.FC<TextInputFieldProps> = ({
             }
           : false,
       pattern: {
-        value: /^[A-Za-z]+(?:\s[A-Za-z]+)?$/,
-        message: "Only letters are allowed",
+        value: /^[A-Za-z]+$/,
+        message: "Only letters are allowed, without spaces",
       },
     };
   };

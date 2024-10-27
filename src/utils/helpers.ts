@@ -55,16 +55,16 @@ export function FilterAndSortProducts(
   // Filtering
   const isNoCategoryOrAll = !categoryChoice || categoryChoice === "all";
   const isNoTagOrAll =
-    tagChoice === null || tagChoice === "all" || tagChoice === "";
-  const isTagEqualUndefined = tagChoice === "no-tags";
+    tagChoice ===  "all" || tagChoice === "";
+  const isTagEqualNull = tagChoice === "no-tags";
 
   const filterdArray = ProductsArray.filter((product) => {
     return (
       (isNoCategoryOrAll ? product : product.category === categoryChoice) &&
       (isNoTagOrAll
         ? product
-        : isTagEqualUndefined
-        ? product.tag === undefined
+        : isTagEqualNull
+        ? product.tag === null
         : product.tag === tagChoice)
     );
   });

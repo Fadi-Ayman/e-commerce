@@ -32,7 +32,7 @@ function ProductImages({ images }: ProductImagesProps) {
       />
 
       {/* Render additional images */}
-      {images.slice(1, 4).map((image, index) => (
+      {images.slice(0, 3).map((image, index) => (
         <Box
           key={index}
           sx={{
@@ -45,14 +45,14 @@ function ProductImages({ images }: ProductImagesProps) {
             aspectRatio: "1/1",
             borderRadius: "10px",
             overflow: "hidden",
-            border: activeIndex === index + 1 ? "3px solid lightgreen" : "none",
+            border: activeIndex === index  ? "3px solid lightgreen" : "none",
           }}
-          onClick={() => setActiveIndex(index + 1)}
+          onClick={() => setActiveIndex(index)}
         >
           <img
             style={{ width: "100%", height: "100%", objectFit: "fill" }}
             src={image}
-            alt={`Thumbnail ${index + 1}`}
+            alt={`Thumbnail ${index}`}
           />
         </Box>
       ))}

@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { calculateTotalPages, FilterAndSortProducts } from "../utils/helpers";
-import { ProductType } from "../Types/ProductTypes";
+import {
+  calculateTotalPages,
+  FilterAndSortProducts,
+} from "../../utils/helpers";
+import { ProductType } from "../../Types/ProductTypes";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { RootState } from "../../store/store";
 import useProducts from "./useProducts";
 
 function useShopProductsOperations() {
-    const {allProducts} = useProducts()
-  
-  const Products: ProductType[] = allProducts; // <== Real Data from api instead of this
+  const { allProducts, isError, error, isLoading } = useProducts();
+
+  const Products: ProductType[] = allProducts;
 
   const [paginationPage, setPaginationPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams({});
@@ -17,7 +20,6 @@ function useShopProductsOperations() {
   const MaxProductsNumberPerPage = useSelector(
     (state: RootState) => state.ProductsGrid.MaxProductsNumber
   );
-
 
   useEffect(() => {
     const pageParam = searchParams.get("page");
@@ -41,7 +43,7 @@ function useShopProductsOperations() {
   );
 
   const totalPages = calculateTotalPages(
-    preparedProductsArray.length,
+    preparedProductsArray?.length,
     MaxProductsNumberPerPage
   );
 
@@ -57,9 +59,17 @@ function useShopProductsOperations() {
 
   const startIndex = (paginationPage - 1) * MaxProductsNumberPerPage;
   const endIndex = startIndex + MaxProductsNumberPerPage;
-  const currentProducts = preparedProductsArray.slice(startIndex, endIndex);
+  const currentProducts = preparedProductsArray?.slice(startIndex, endIndex);
 
-  return { currentProducts, totalPages, paginationPage, handlePageChange };
+  return {
+    currentProducts,
+    totalPages,
+    paginationPage,
+    handlePageChange,
+    isError,
+    isLoading,
+    error,
+  };
 }
 
 export default useShopProductsOperations;

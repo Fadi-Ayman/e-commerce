@@ -1,6 +1,6 @@
 import { IconButton } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import DrawerSearchSection from "../SearchInputPack/AppMainSearchBox";
+import AppMainSearchBox  from "../SearchInputPack/AppMainSearchBox";
 import MuiModal from "../MuiModal";
 import { useLocation } from "react-router-dom";
 
@@ -11,7 +11,7 @@ function SearchButton() {
     <MuiModal
       isCentered={true}
       modalComponent={
-        <DrawerSearchSection fontColor={isHomePage ? "white" : "black"} Inputsize="medium" />
+        <AppMainSearchBox  fontColor={isHomePage ? "white" : "black"} Inputsize="medium" />
       }
     >
       <IconButton

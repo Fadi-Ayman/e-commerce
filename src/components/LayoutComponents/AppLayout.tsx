@@ -10,7 +10,7 @@ function AppLayout() {
 
       <Box
         component={"main"}
-        sx={{ width: "100%",minHeight: "88vh", overflow: "clip" }}
+        sx={{ width: "100%", minHeight: "95vh", overflow: "clip" }}
       >
         <Outlet />
       </Box>

@@ -1,7 +1,7 @@
 import { IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { theme } from "../styles/theme";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useLocation } from "react-router-dom";
@@ -31,6 +31,10 @@ export default function MuiModal({
     modalColor = "black";
   }
 
+  useEffect(() => {
+    handleClose();
+  }, [path]);
+
   return (
     <Box component={"span"}>
       {/* Take Button as child  */}
@@ -50,7 +54,6 @@ export default function MuiModal({
       >
         {/* Modal */}
         <Box
-        
           sx={{
             position: "absolute",
             top: "50%",

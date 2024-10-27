@@ -11,13 +11,13 @@ function ProductCardDetails({
 }: ProductCardDetailsType) {
   return (
     <Box
-      sx={{
-        width: "100%",
-        flexDirection: "column",
-        alignSelf: "start",
-        display: "flex",
-        gap: "0.2rem",
-      }}
+        sx={{
+          width: "100%",
+          flexDirection: "column",
+          alignSelf: "start",
+          display: "flex",
+          gap: "0.2rem",
+        }}
     >
       {/* Rating */}
       <Rating

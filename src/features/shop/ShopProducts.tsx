@@ -4,10 +4,11 @@ import ProductsTableOperations from "../../components/ProductsTableOperations/Pr
 import ProductsPagination from "./ProductsPagination";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import useShopProductsOperations from "../../hooks/useShopProductsOperations";
+import useShopProductsOperations from "../../hooks/productsHooks/useShopProductsOperations";
 
 function ShopProducts() {
-  const { currentProducts } = useShopProductsOperations();
+  const { currentProducts, isError, isLoading, error } =
+    useShopProductsOperations();
   const MaxProductsNumber = useSelector(
     (state: RootState) => state.ProductsGrid.MaxProductsNumber
   );
@@ -29,6 +30,9 @@ function ShopProducts() {
       <ProductsTableOperations />
       {/* Product List Of Page */}
       <ProductsGridList
+        isLoading={isLoading}
+        isError={isError}
+        error={error}
         maxProductsNumber={MaxProductsNumber}
         ProductArray={currentProducts}
       />

@@ -1,9 +1,27 @@
 import { Box, Typography } from "@mui/material";
 import ProductsGridList from "../../components/SectionsGrid/ProductsGridList";
-import { DummyProducts } from "../../utils/dummyData";
 import { bestSellerMaxCount } from "../../utils/constants";
+import { ProductType } from "../../Types/ProductTypes";
 
-function BestSeller() {
+type BestSellerProps = {
+  TopRatingProducts: ProductType[];
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+};
+
+function BestSeller({
+  TopRatingProducts,
+  isLoading,
+  isError,
+  error,
+}: BestSellerProps) {
+
+  
+
+
+
+
   return (
     <Box
       component={"section"}
@@ -28,7 +46,10 @@ function BestSeller() {
 
       {/* Section Content */}
       <ProductsGridList
-        ProductArray={DummyProducts}
+        isLoading={isLoading}
+        isError={isError}
+        error={error}
+        ProductArray={TopRatingProducts}
         maxProductsNumber={bestSellerMaxCount}
       />
     </Box>

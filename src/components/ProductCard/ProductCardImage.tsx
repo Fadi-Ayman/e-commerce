@@ -32,6 +32,7 @@ function ProductCardImage({
         image={image}
         alt={name}
       />
+      
       {/* Tags & Discount Badges Container */}
       <Box
         sx={{

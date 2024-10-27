@@ -4,29 +4,33 @@ import ProductDetails from "../features/product/ProductDetails";
 import { theme } from "../styles/theme";
 import SuggestedProducts from "../features/product/SuggestedProducts";
 import Newsletter from "../components/Newsletter";
-
-const FakeRating = 3.5;
-const FakeReviewsNumber = 11;
-const FakeProductName = "Tray Table";
-const FakeDescription =
-  "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam soluta, optio, laboriosam impedit voluptatibus dolores vero facilis neque blanditiis atque deleniti. Ipsum voluptates asperiores totam nam cupiditate aspernatur excepturi reiciendis ullam, unde enim maxime delectus. Commodi consequuntur sapiente libero modi.";
-
-const FakePrice = 299.99;
-const FakeDiscount = 2;
-const FakeCategory = "furniture";
-const FakeDiscountEndDate = new Date("2025-10-02").toISOString();
-const FakeImages = [
-  "/Card.png",
-  "/clothes.png",
-  "/shoes.png",
-  "/rebecca-grand.png",
-];
+import useSingleProduct from "../hooks/productsHooks/useSingleProduct";
+import EmptyDataMsg from "../components/EmptyDataMsg";
+import PageLoadingSpinner from "../components/PageLoadingSpinner";
 
 function Product() {
   const { productId } = useParams<{ productId: string }>();
 
-  // const productCategory;  // pass it to sugessted categories
-  // Fetch Product using ID
+  const { isError, isLoading, error, product } = useSingleProduct(
+    productId as string
+  );
+
+  
+  if (isLoading) return <PageLoadingSpinner />;
+  if (isError) return <EmptyDataMsg withGoHome height="100vh" message={error?.message as string}/>;
+
+  const {
+    id,
+    name,
+    description,
+    price,
+    images,
+    discount,
+    discountEndDate,
+    category,
+    ratingValue,
+    reviewsNumber,
+  } = product;
 
   return (
     <>
@@ -42,27 +46,30 @@ function Product() {
           my: { xs: "2rem", lg: "3rem" },
         }}
       >
-        {productId && (
+        {productId && !isError && (
           <ProductDetails
-            id={productId}
-            category={FakeCategory}
-            description={FakeDescription}
-            discount={FakeDiscount}
-            discountEndDate={FakeDiscountEndDate}
-            images={FakeImages}
-            name={FakeProductName}
-            price={FakePrice}
-            ratingValue={FakeRating}
-            reviewsNumber={FakeReviewsNumber}
+            id={id}
+            category={category}
+            description={description}
+            discount={discount}
+            discountEndDate={discountEndDate}
+            images={images}
+            name={name}
+            price={price}
+            ratingValue={ratingValue}
+            reviewsNumber={reviewsNumber}
           />
         )}
 
-        <Divider
-          sx={{ width: "100%", backgroundColor: theme.palette.grey[500] }}
-        />
+        {!isError && (
+          <>
+            <Divider
+              sx={{ width: "100%", backgroundColor: theme.palette.grey[500] }}
+            />
 
-        {/* here get suggested products based on category */}
-        <SuggestedProducts category={FakeCategory} />
+            <SuggestedProducts category={category} />
+          </>
+        )}
       </Box>
 
       <Newsletter />

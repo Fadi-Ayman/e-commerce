@@ -5,7 +5,6 @@ export type PaymentMethods = "pay-on-delivery" | "credit-card";
 export type Status = "delevered" | "pending";
 
 type userDataForOrders ={
-  id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -17,30 +16,39 @@ type userDataForOrders ={
 
 export type ApiOrders = {
   id: string;
+  userId: string;
   createdAt: string;
   paymentMethod: PaymentMethods;
   status: Status
   totalPrice: number;
-  userCart: CartItemType[]
-  user : userDataForOrders
+  userDetails : userDataForOrders
+  orderItems: CartItemType[]
 }
 
 export type ApiWishList = {
   id: string;
   userId:string
   createdAt: string;
-  product: Pick<ProductType,"id"|"name"|"image"|"price">
+  products: Pick<ProductType,"id"|"name"|"image"|"price">[]
 }
 
-export type ApiUser = {
+export type ApiUserData = {
   id: string;
   firstName: string;
   lastName: string;
-  image?: string;
-  createdAt: string;
-  orders: ApiOrders[]
-  wishList: ApiWishList[]
-}
+  email: string;
+  image: string
+  accessToken: string
+};
 
+export type RegisterFormInputs = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+};
 
-
+export type LoginFormInputs = {
+  email: string;
+  password: string;
+};

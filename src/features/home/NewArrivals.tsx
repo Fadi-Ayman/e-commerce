@@ -1,9 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import Carousel from "../../components/Carousel";
-import { DummyProducts } from "../../utils/dummyData";
 import { SwiperSlide } from "swiper/react";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { productsCarouselMaxCount } from "../../utils/constants";
+import { ProductType } from "../../Types/ProductTypes";
+import CardSkeleton from "../../components/ProductCard/CardSkeleton";
+import EmptyDataMsg from "../../components/EmptyDataMsg";
 
 const productCarouselbreakpoints = {
   0: {
@@ -28,7 +30,24 @@ const productCarouselbreakpoints = {
   },
 };
 
-function NewArrivals() {
+type NewArrivalsProps = {
+  newProducts: ProductType[];
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+};
+
+function NewArrivals({
+  newProducts,
+  isLoading,
+  isError,
+  error,
+}: NewArrivalsProps) {
+  
+  if (isError) {
+    return <EmptyDataMsg message={error?.message as string} />;
+  }
+
   return (
     <Box
       component={"section"}
@@ -54,24 +73,32 @@ function NewArrivals() {
         New Arrivals
       </Typography>
 
-      <Carousel width="100%" breakpoints={productCarouselbreakpoints}>
-        {DummyProducts.map((product, i) => {
-          if (i >= productsCarouselMaxCount) return null;
-          return (
-            <SwiperSlide key={product.id}>
-              <ProductCard
-                isInSlider={true}
-                id={product.id}
-                tag={product.tag}
-                discount={product.discount}
-                image={product.image}
-                name={product.name}
-                price={product.price}
-                ratingValue={product.ratingValue}
-              />
-            </SwiperSlide>
-          );
-        })}
+      <Carousel width="98%" breakpoints={productCarouselbreakpoints}>
+        {isLoading
+          ? Array.from({ length: productsCarouselMaxCount }).map((_, i) => {
+              return (
+                <SwiperSlide key={i}>
+                  <CardSkeleton isInSlider={true} />
+                </SwiperSlide>
+              );
+            })
+          : newProducts.map((product, i) => {
+              if (i >= productsCarouselMaxCount) return null;
+              return (
+                <SwiperSlide key={product.id}>
+                  <ProductCard
+                    isInSlider={true}
+                    id={product.id}
+                    tag={product.tag}
+                    discount={product.discount}
+                    image={product.image}
+                    name={product.name}
+                    price={product.price}
+                    ratingValue={product.ratingValue}
+                  />
+                </SwiperSlide>
+              );
+            })}
       </Carousel>
     </Box>
   );

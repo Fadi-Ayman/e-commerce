@@ -5,22 +5,33 @@ import { RootState } from "../../store/store";
 import { useLocation } from "react-router-dom";
 import EmptyDataMsg from "../EmptyDataMsg";
 import { ProductType } from "../../Types/ProductTypes";
+import CardSkeleton from "../ProductCard/CardSkeleton";
 
 type ProductsGridListProps = {
   ProductArray: ProductType[];
   maxProductsNumber?: number;
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
 };
 
 function ProductsGridList({
   ProductArray,
   maxProductsNumber = 4 * 13,
+  isLoading,
+  isError,
+  error,
 }: ProductsGridListProps) {
   const pathname = useLocation().pathname;
   const isHomePage = pathname === "/home" || pathname === "/";
   const gridColsSm = useSelector((state: RootState) => state.ProductsGrid.sm);
   const gridColsLg = useSelector((state: RootState) => state.ProductsGrid.lg);
 
-  if (ProductArray.length === 0)
+  if (isError) {
+    return <EmptyDataMsg message={error?.message as string} />
+  }
+
+  if (ProductArray?.length === 0)
     return <EmptyDataMsg message={"No Products To Show"} />;
 
   return (
@@ -40,23 +51,27 @@ function ProductsGridList({
         },
       }}
     >
-      {/* Content */}
-      {ProductArray.map((product, i) => {
-        if (i >= maxProductsNumber) return;
-        return (
-          <ProductCard
-            key={product.id}
-            id={product.id}
-            isInSlider={false}
-            image={product.image}
-            name={product.name}
-            price={product.price}
-            tag={product.tag}
-            discount={product.discount}
-            ratingValue={product.ratingValue}
-          />
-        );
-      })}
+      
+      {isLoading ?
+        Array.from({ length: maxProductsNumber }, (_, i) => (
+          <CardSkeleton isInSlider={false} key={i} />
+        )):ProductArray?.map((product, i) => {
+          if (i >= maxProductsNumber) return;
+          return (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              isInSlider={false}
+              image={product.image}
+              name={product.name}
+              price={product.price}
+              tag={product.tag}
+              discount={product.discount}
+              ratingValue={product.ratingValue}
+            />
+          );
+        })}
+
     </Box>
   );
 }

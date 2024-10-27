@@ -15,7 +15,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ConnectWithoutContactOutlinedIcon from "@mui/icons-material/ConnectWithoutContactOutlined";
 import { theme } from "../../styles/theme";
 import { Link } from "react-router-dom";
-import DrawerSearchSection from "../SearchInputPack/AppMainSearchBox";
+import AppMainSearchBox from "../SearchInputPack/AppMainSearchBox";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import { NavLink, userSetting } from "../../Types/Types";
 import LogoutButton from "../OneTruthyLogicPlaceButtons/LogoutButton";
@@ -56,11 +56,24 @@ export default function DrawerNav() {
 
   const DrawerList = (
     <Box sx={{ width: { xs: "70vw", sm: "300px" } }} role="presentation">
-      <DrawerSearchSection
-        fontColor="black"
-        Inputsize="small"
-        toggleDrawer={toggleDrawer(false)}
-      />
+      {/* Search Box */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          gap: "1rem",
+          width: "100%",
+          minHeight: "130px",
+        }}
+      >
+        <AppMainSearchBox
+          fontColor="black"
+          Inputsize="small"
+          toggleDrawer={toggleDrawer(false)}
+        />
+      </Box>
 
       <Divider />
       <List onClick={toggleDrawer(false)}>
@@ -123,7 +136,14 @@ export default function DrawerNav() {
         }}
         onClick={toggleDrawer(true)}
       >
-        <MenuIcon sx={{width:"1.8rem",height:"1.8rem" , mb:"0.2rem" ,mx:"0.5rem "}}  />
+        <MenuIcon
+          sx={{
+            width: "1.8rem",
+            height: "1.8rem",
+            mb: "0.2rem",
+            mx: "0.5rem ",
+          }}
+        />
       </IconButton>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}

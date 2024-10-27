@@ -52,14 +52,15 @@ function CheckoutForm() {
 
 
 
-  function onSubmit(FormData: CheckoutFormInputsType) {
+  function onSubmit(CheckoutFormData: CheckoutFormInputsType) {
 
     const orderData: Omit<ApiOrders, "id"| "createdAt"> = {
       status: "pending",
       totalPrice: cartTotalPrice,
       paymentMethod: paymentMethodstate,
-      userCart: cartList,
-      user: {...FormData , id:"321" }
+      orderItems: cartList,
+      userId:"1",
+      userDetails: CheckoutFormData  
     }
     
     // Send Order Request includes ( cartListData , userDetails from form )

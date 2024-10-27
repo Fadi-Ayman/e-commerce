@@ -15,11 +15,10 @@ import { useId, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { theme } from "../../styles/theme";
+import { LoginFormInputs } from "../../Types/ApiTypes";
+import useLogin from "../../hooks/authHooks/useLogin";
 
-type LoginFormInputs = {
-  email: string;
-  password: string;
-};
+
 
 const LoginFormInitialValues: LoginFormInputs = {
   email: "",
@@ -30,6 +29,7 @@ function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const id = useId();
+  const { Login, isLoggingIn } = useLogin();
 
   const {
     register,
@@ -38,7 +38,7 @@ function LoginForm() {
   } = useForm<LoginFormInputs>({ defaultValues: LoginFormInitialValues });
 
   function onSubmit(data: LoginFormInputs) {
-    console.log(data);
+    Login(data);
   }
 
   const handleClickShowPassword = () =>
@@ -113,6 +113,8 @@ function LoginForm() {
         label="Email Address"
         variant="standard"
         autoComplete="on"
+        disabled={isLoggingIn}
+
         sx={{
           padding: { xs: "0", md: "0.3rem 0rem" },
           "& .MuiInputBase-input": {
@@ -140,6 +142,7 @@ function LoginForm() {
           sx={{
             padding: { xs: "0", md: "0.2rem 0.5rem" },
           }}
+          disabled={isLoggingIn}
           id={id + "password"}
           type={showPassword ? "text" : "password"}
           endAdornment={
@@ -169,6 +172,7 @@ function LoginForm() {
           padding: "0.6rem 0.3rem",
           mt: "0.5rem",
         }}
+        disabled={isLoggingIn}
         type="submit"
       >
         Sign In

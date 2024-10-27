@@ -1,14 +1,24 @@
 import { Box, Typography } from "@mui/material";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function EmptyDataMsg({ message,withGoBack = false ,withGoHome = false}: { message: string, withGoBack?: boolean ,withGoHome?: boolean}) {
+function EmptyDataMsg({
+  message,
+  withGoBack = false,
+  withGoHome = false,
+  height = "65vh",
+}: {
+  message: string;
+  withGoBack?: boolean;
+  withGoHome?: boolean;
+  height?: string;
+}) {
   const navigate = useNavigate();
 
   return (
     <Box
       sx={{
         width: "100%",
-        height: "65vh",
+        height: height,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -25,23 +35,27 @@ function EmptyDataMsg({ message,withGoBack = false ,withGoHome = false}: { messa
         {message}
       </Typography>
 
-      {withGoBack && <Typography
-        component={"span"}
-        variant="body1"
-        sx={{ cursor: "pointer", textDecoration: "underline" }}
-        onClick={() => navigate(-1)}
-      >
-        Go back
-      </Typography>}
+      {withGoBack && (
+        <Typography
+          component={"span"}
+          variant="body1"
+          sx={{ cursor: "pointer", textDecoration: "underline" }}
+          onClick={() => navigate(-1)}
+        >
+          Go back
+        </Typography>
+      )}
 
-      {withGoHome && <Typography
-        component={"span"}
-        variant="body1"
-        sx={{ cursor: "pointer", textDecoration: "underline" }}
-        onClick={() => navigate("/")}
-      >
-        Go Home
-      </Typography>}
+      {withGoHome && (
+        <Typography
+          component={"span"}
+          variant="body1"
+          sx={{ cursor: "pointer", textDecoration: "underline" }}
+          onClick={() => navigate("/")}
+        >
+          Go Home
+        </Typography>
+      )}
     </Box>
   );
 }

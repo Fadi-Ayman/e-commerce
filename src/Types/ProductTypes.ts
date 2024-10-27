@@ -1,9 +1,8 @@
 // ######################################################################## BASE TYPE #######################################
 
 export type Categories = "electronics" | "shoes" | "clothes" | "furniture" | "other";
-// type RatingValue = 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5;
 
-export type productTag = "new" | "hot" | "limited" | "discount" | undefined;
+export type productTag = "new" | "hot" | "limited" | "discount" | null;
 
 type BaseProduct = {
   id: string;
@@ -11,26 +10,27 @@ type BaseProduct = {
   description: string;
   price: number;
   tag: productTag;
-  discount?: number;
-  discountEndDate?: string;
+  discount: number | null;
+  discountEndDate: string | null;
   image: string;
   images: string[];
   category: Categories;
-  ratingValue: number;
+  ratingValue: number;   // Max 5
   reviewsNumber: number;
   createdAt: string; // May use Date Type
 };
 
+
 type ProductWithDiscount = BaseProduct & {
-  tag: "discount"; // specific to this type
-  discount: number; //required for this type
+  tag: "discount"; 
+  discount: number; 
   discountEndDate: string;
 };
 
 type ProductWithoutDiscount = BaseProduct & {
   tag: Exclude<productTag, "discount">; // Tag cannot be 'discount'
-  discount?: undefined | 0; // If tag is not 'discount', discount must be undefined or 0
-  discountEndDate?: undefined | "";
+  discount: null ; // If tag is not 'discount', discount must be null or 0
+  discountEndDate: null ;
 };
 
 // Last version of type which will be used

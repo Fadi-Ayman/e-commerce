@@ -5,11 +5,13 @@ import { Lorem500 } from "../../utils/dummyData";
 type AgreementsCheckBoxProps = {
   isAgreedLegalTemrs: boolean;
   setIsAgreedLegalTemrs: React.Dispatch<React.SetStateAction<boolean>>;
+  disabled:boolean
 };
 
 function AgreementsCheckBox({
   isAgreedLegalTemrs,
   setIsAgreedLegalTemrs,
+  disabled
 }: AgreementsCheckBoxProps) {
   return (
     <Box
@@ -31,6 +33,8 @@ function AgreementsCheckBox({
           color: "black",
 
         }}}
+        disabled={disabled}
+
         checked={isAgreedLegalTemrs}
         onChange={(e) => setIsAgreedLegalTemrs(e.target.checked)}
         inputProps={{ "aria-label": "controlled" }}

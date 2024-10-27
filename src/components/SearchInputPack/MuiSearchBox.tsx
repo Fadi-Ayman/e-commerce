@@ -1,49 +1,41 @@
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { theme } from "../../styles/theme";
-
-// Define the props for the MuiSearchBox component
+import { ProductType } from "../../Types/ProductTypes";
 
 type SearchHeightProps = {
   Inputsize: "small" | "medium";
   inputValue: string;
   onInputChange: React.Dispatch<React.SetStateAction<string>>;
   fontColor: "black" | "white";
+  allProducts: ProductType[];
+  onSelectProduct: (id: string) => void; 
 };
-
-// Define the type for search options
-type SearchOption = {
-  title: string;
-  category: string;
-};
-
-// Create an array of search options
-const SearchOptions: SearchOption[] = [
-  { title: "The Shawshank Redemption", category: "Action" },
-  { title: "The Godfather", category: "Action" },
-  { title: "The Godfather: Part II", category: "Action" },
-  { title: "The Dark Knight", category: "Adventure" },
-  { title: "12 Angry Men", category: "Adventure" },
-  { title: "Schindler's List", category: "Romantic" },
-  { title: "Pulp Fiction", category: "Romantic" },
-];
 
 function MuiSearchBox({
   Inputsize = "medium",
   inputValue,
   onInputChange,
   fontColor = "black",
+  allProducts,
+  onSelectProduct, 
 }: SearchHeightProps) {
+
   return (
     <Autocomplete
-      options={SearchOptions.sort(
+      options={allProducts.sort(
         (a, b) => a.category?.localeCompare(b.category || "") || 0
       )}
-      groupBy={(option) => option.category || "Unknown"}
-      getOptionLabel={(option) => option.title}
+      groupBy={(option) => option.category.toUpperCase()}
+      getOptionLabel={(option) => option.name}
       size={Inputsize}
       onInputChange={(_, newInputValue) => {
         onInputChange(newInputValue);
+      }}
+      onChange={(_, selectedProduct) => {
+        if (selectedProduct) {
+          onSelectProduct(selectedProduct.id); 
+        }
       }}
       sx={{ width: "100%" }}
       inputValue={inputValue}
@@ -55,24 +47,24 @@ function MuiSearchBox({
           label="Products Search"
           sx={{
             "& .MuiOutlinedInput-root": {
-              color: fontColor, // Font color
+              color: fontColor,
               "& fieldset": {
-                borderColor: `${theme.palette.grey[300]} !important`, // Border color without focused
+                borderColor: `${theme.palette.grey[300]} !important`,
               },
               "&.Mui-focused fieldset": {
-                border: `${theme.palette.warning.dark} 1px solid !important`, // Focused border color
+                border: `${theme.palette.warning.dark} 1px solid !important`,
               },
               "& .MuiSvgIcon-root": {
-                color: theme.palette.warning.dark, // x icon color
+                color: theme.palette.warning.dark,
               },
               "&:hover fieldset": {
-                borderColor: `${theme.palette.warning.dark} !important`, // Hover border color
+                borderColor: `${theme.palette.warning.dark} !important`,
               },
             },
             "& .MuiInputLabel-root": {
-              color: "gray", // Label color
+              color: "gray",
               "&.Mui-focused": {
-                color: `${theme.palette.warning.dark}  !important`, // Focused label color
+                color: `${theme.palette.warning.dark}  !important`,
               },
             },
           }}

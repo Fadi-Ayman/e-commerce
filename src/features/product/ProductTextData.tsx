@@ -50,7 +50,7 @@ function ProductTextData({
       </Box>
 
       {/* Name */}
-      <Typography component={"h3"} variant="h3" sx={{ fontWeight: "500" }}>
+      <Typography component={"h4"} variant="h4" sx={{ fontWeight: "500" }}>
         {name}
       </Typography>
 

@@ -30,10 +30,15 @@ export default function ProductCard({
         borderColor: "grey.200",
         width: "100%",
         cursor: "pointer",
+        "&:hover":{
+          transform: {xs:"scale(1.01,1.01)",md:"scale(1.05,1.05)"}
+        },
+        transition: "0.25s ease-in-out",
         minWidth: "100px",
         maxWidth: isInSlider
           ? { xs: "250px", md: "350px", xl: "450px" }
           : { xs: "350px", md: "230px", xl: "300px" },
+
       }}
     >
       {/* Product Image */}

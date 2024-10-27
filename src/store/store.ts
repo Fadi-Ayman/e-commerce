@@ -9,7 +9,6 @@ const persistConfig = {
   key: "cart",
   storage,
   blacklist: ['currentCartPage', 'paymentMethod'], // Do not persist these properties
-
 };
 
 const persistedReducer = persistReducer(persistConfig, CartReducer);
