@@ -5,12 +5,21 @@ import CartItem from "../CartItem";
 import { CartListHeaderTables } from "../../../utils/constants";
 import CartSummary from "../CartSummary.tsx";
 import { RootState } from "../../../store/store.ts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { setCurrentCartPage } from "../../../store/CartSlice.ts";
 
 
 function CartTable() {
   const  cartList  = useSelector((state: RootState) => state.Cart.cartList);
   const isEmptyCart = cartList.length === 0;
+  const dispatch = useDispatch();
+
+
+    // Always Set To current page to  0 on mount , To Protect cart Routs , as also do other Checks in child pages
+    useEffect(() => {
+      dispatch(setCurrentCartPage(0));
+    }, [dispatch]);
 
   return (
     <Box

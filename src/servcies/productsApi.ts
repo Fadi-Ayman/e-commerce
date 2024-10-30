@@ -13,13 +13,12 @@ export async function getAllProducts() {
   try {
     const res = await axios.get(url, { headers });
     return res.data;
-  }  catch  {
+  } catch {
     throw new Error("Error fetching products");
   }
 }
 
-
-export async function getProduct(productId:string){
+export async function getProduct(productId: string) {
   const url = `${BASE_URL}/rest/v1/products?id=eq.${productId}`;
   const headers = {
     "Content-Type": "application/json",
@@ -28,15 +27,13 @@ export async function getProduct(productId:string){
 
   try {
     const res = await axios.get(url, { headers });
-    return res.data[0]
-    
-  } catch  {
+    return res.data[0];
+  } catch {
     throw new Error("Error fetching product");
   }
 }
 
-
-export async function getProducsByCategory(categoryName:string){
+export async function getProducsByCategory(categoryName: string) {
   const url = `${BASE_URL}/rest/v1/products?category=eq.${categoryName}`;
   const headers = {
     "Content-Type": "application/json",
@@ -45,9 +42,8 @@ export async function getProducsByCategory(categoryName:string){
 
   try {
     const res = await axios.get(url, { headers });
-    return res.data
-    
-  }  catch  {
+    return res.data;
+  } catch {
     throw new Error("Error fetching sugessted products");
   }
 }

@@ -30,12 +30,12 @@ function sortProducts(productsArray: ProductType[], sortChoice: string) {
 }
 
 export function FilterAndSortProducts(
-  ProductsArray: ProductType[],
+  ProductsArray: ProductType[] | undefined,
   categoryChoice: string,
   tagChoice: string,
   sortChoice: string
-): ProductType[] {
-
+): ProductType[] | undefined {
+  if (!ProductsArray) return undefined;
 
   // if no filter or sort is selected return all products
   if (!categoryChoice && !tagChoice && !sortChoice) {
@@ -50,12 +50,9 @@ export function FilterAndSortProducts(
     return ProductsArray;
   }
 
-
-
   // Filtering
   const isNoCategoryOrAll = !categoryChoice || categoryChoice === "all";
-  const isNoTagOrAll =
-    tagChoice ===  "all" || tagChoice === "";
+  const isNoTagOrAll = tagChoice === "all" || tagChoice === "";
   const isTagEqualNull = tagChoice === "no-tags";
 
   const filterdArray = ProductsArray.filter((product) => {
@@ -70,10 +67,10 @@ export function FilterAndSortProducts(
   });
 
   // if no sort is selected return filtered products only
-  if(!sortChoice || sortChoice === "newest"){
-    return filterdArray
+  if (!sortChoice || sortChoice === "newest") {
+    return filterdArray;
   }
-  
+
   // Sorting
   return sortProducts(filterdArray, sortChoice);
 }

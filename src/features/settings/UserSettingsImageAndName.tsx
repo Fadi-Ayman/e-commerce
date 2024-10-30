@@ -1,12 +1,10 @@
 import { Avatar, Box, IconButton, Typography } from "@mui/material";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import toast from "react-hot-toast";
-import { uploadImage } from "../../servcies/userApi";
-
-const name = "Fady Ayman";
-const image = "/fakeUserImage.png";
+import { useAuth } from "../../context/AuthContext";
 
 function UserSettingsImageAndName() {
+  const { userData, updateProfileImage, isUpdatingImage } = useAuth();
 
   function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
     const files = event.target.files;
@@ -22,10 +20,9 @@ function UserSettingsImageAndName() {
 
       const formData = new FormData();
       formData.append("image", file);
-      uploadImage(formData, file.name);
 
+      updateProfileImage({ image: formData, fileName: file.name });
     }
-
   }
 
   return (
@@ -46,7 +43,7 @@ function UserSettingsImageAndName() {
             width: "100%",
             height: "100%",
           }}
-          src={image}
+          src={userData?.image}
           imgProps={{
             style: {
               objectFit: "cover",
@@ -57,6 +54,7 @@ function UserSettingsImageAndName() {
         />
 
         <IconButton
+          disabled={isUpdatingImage}
           sx={{
             bgcolor: "black",
             position: "absolute",
@@ -71,6 +69,7 @@ function UserSettingsImageAndName() {
           <input
             type="file"
             accept="image/*"
+            disabled={isUpdatingImage}
             hidden
             onChange={handleImageChange}
           />
@@ -80,7 +79,7 @@ function UserSettingsImageAndName() {
 
       {/* User Name */}
       <Typography variant="h5" fontWeight={"inherit"} component={"h5"}>
-        {name}
+        {userData?.firstName} {userData?.lastName}
       </Typography>
     </Box>
   );

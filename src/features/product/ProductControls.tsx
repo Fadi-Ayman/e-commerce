@@ -13,13 +13,11 @@ function ProductControls({
   name: productName,
   price: productPrice,
 }: ProductControlsProps) {
-
   const [quantity, setQuantity] = useState<number>(1);
 
   function handleSetQuantity(quantity: number) {
     setQuantity(quantity);
   }
-
 
   return (
     <Box
@@ -57,6 +55,9 @@ function ProductControls({
         isInCard={false}
         gridColumn="3/-1"
         gridRow="1/2"
+        image={productImage}
+        name={productName}
+        price={productPrice}
       />
     </Box>
   );

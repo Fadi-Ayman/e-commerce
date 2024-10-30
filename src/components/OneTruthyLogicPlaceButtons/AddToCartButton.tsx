@@ -5,6 +5,7 @@ import { CartItemType } from "../../Types/Types";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/CartSlice";
 import { RootState } from "../../store/store";
+import { useAuth } from "../../context/AuthContext";
 
 type AddToCartButtonProps = Omit<CartItemType, "subTotal"> & {
   gridRow?: string;
@@ -22,9 +23,11 @@ function AddToCartButton({
   gridColumn = "",
   isInTable = false,
 }: AddToCartButtonProps) {
-
-  const dispatch = useDispatch()
-  const isInCart = useSelector((state: RootState) => state.Cart.cartList.some((item) => item.id === id))
+  const dispatch = useDispatch();
+  const isInCart = useSelector((state: RootState) =>
+    state.Cart.cartList.some((item) => item.id === id)
+  );
+  const { isAuthenticated } = useAuth();
 
   const CartItemData: CartItemType = {
     id,
@@ -35,19 +38,20 @@ function AddToCartButton({
     subTotal: quantity * price,
   };
 
-
-
-
   function handleAddToCartButton() {
-    if (isInCart) {
-      toast.error(`( ${name} ) is Already in the Cart`)
-      return
+    if (!isAuthenticated) {
+      toast.error("Please Login First");
+      return;
     }
 
-    toast.success( `( ${name} ) Added to the Cart successfully`);
-    dispatch(addToCart(CartItemData))
-  }
+    if (isInCart) {
+      toast.error(`( ${name} ) is Already in the Cart`);
+      return;
+    }
 
+    toast.success(`( ${name} ) Added to the Cart successfully`);
+    dispatch(addToCart(CartItemData));
+  }
 
   return (
     <Button

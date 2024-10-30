@@ -1,11 +1,21 @@
 import { Box, Typography } from "@mui/material";
 import CustomTable from "../../../components/CustomTable/CustomTable";
 import { WishListHeaderLabels } from "../../../utils/constants";
-import { DummyProducts } from "../../../utils/dummyData";
 import WishlistTableItem from "../WishlistTableItem";
 import EmptyDataMsg from "../../../components/EmptyDataMsg";
+import useWishlist from "../../../hooks/wishlistHooks/useWishlist";
+import PageLoadingSpinner from "../../../components/PageLoadingSpinner";
 
 function WishList() {
+  const {
+    wishlists = [],
+    isWishlistsLoading,
+    isWishlistError,
+    wishlistError,
+  } = useWishlist();
+
+  if (isWishlistsLoading) return <PageLoadingSpinner />;
+
   return (
     <Box
       component={"section"}
@@ -27,7 +37,11 @@ function WishList() {
       </Typography>
 
       {/* WishList Table */}
-      {DummyProducts.length === 0 ? (
+      {isWishlistError ? (
+        <EmptyDataMsg
+          message={wishlistError?.message || "Something went wrong"}
+        />
+      ) : wishlists.length === 0 ? (
         <EmptyDataMsg message="No WishLists Yet" />
       ) : (
         <CustomTable
@@ -35,10 +49,10 @@ function WishList() {
           gap="0.5rem"
           gridTemplateColumns="1fr 1fr 1fr 0.5fr"
         >
-          {DummyProducts.map((product) => (
+          {wishlists.map((product) => (
             <WishlistTableItem
               key={product.id}
-              id={product.id}
+              id={product.productId}
               name={product.name}
               price={product.price}
               image={product.image}

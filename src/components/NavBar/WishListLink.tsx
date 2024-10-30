@@ -1,10 +1,11 @@
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Badge, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
-const wishListCount = 20;
+import useWishlist from "../../hooks/wishlistHooks/useWishlist";
 
 function WishListLink() {
+  const { wishlists } = useWishlist();
+  const wishListCount = wishlists?.length || 0;
   const navigate = useNavigate();
   return (
     <IconButton

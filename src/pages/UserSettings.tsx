@@ -1,12 +1,19 @@
 import { Box } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import UserSettingsSideBar from "../features/settings/UserSettingsSideBar";
+import { useAuth } from "../context/AuthContext";
 
 function UserSettings() {
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return <Navigate replace to="/login" />;
+  }
+
   return (
     <Box
       sx={{
-        margin: {xs:"2rem 1rem",md:"2rem"},
+        margin: { xs: "2rem 1rem", md: "2rem" },
         height: "100%",
         overflow: "hidden",
         display: "grid",

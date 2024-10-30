@@ -4,7 +4,7 @@ import { CartItemType } from "./Types";
 export type PaymentMethods = "pay-on-delivery" | "credit-card";
 export type Status = "delevered" | "pending";
 
-type userDataForOrders ={
+type userDataForOrders = {
   firstName: string;
   lastName: string;
   email: string;
@@ -12,33 +12,46 @@ type userDataForOrders ={
   governorate: string;
   city: string;
   address: string;
-}
+};
 
 export type ApiOrders = {
   id: string;
   userId: string;
   createdAt: string;
   paymentMethod: PaymentMethods;
-  status: Status
+  status: Status;
   totalPrice: number;
-  userDetails : userDataForOrders
-  orderItems: CartItemType[]
-}
+  userDetails: userDataForOrders;
+  orderItems: CartItemType[];
+};
 
-export type ApiWishList = {
+
+
+export type ApiWishlistItem = {
   id: string;
-  userId:string
+  name: string;
+  image: string;
+  price: number;
+  productId: string;
+  wishlistId: string;
+};
+
+
+export type ApiWishlist = [{
+  id: string;
+  userId: string;
   createdAt: string;
-  products: Pick<ProductType,"id"|"name"|"image"|"price">[]
-}
+  wishlist_items: ApiWishlistItem[];
+}];
+
 
 export type ApiUserData = {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
-  image: string
-  accessToken: string
+  image: string;
+  accessToken: string;
 };
 
 export type RegisterFormInputs = {
@@ -51,4 +64,18 @@ export type RegisterFormInputs = {
 export type LoginFormInputs = {
   email: string;
   password: string;
+};
+
+export type UpdateFormInputsType = {
+  firstName: string | null;
+  lastName: string | null;
+  email: string;
+  oldPassword: string | null;
+  newPassword: string | null;
+  confirmPassword: string | null;
+};
+
+export type UpdateUserImageType = {
+  image: FormData;
+  fileName: string;
 };

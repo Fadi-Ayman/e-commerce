@@ -17,8 +17,9 @@ import { theme } from "../../styles/theme";
 import { Link } from "react-router-dom";
 import AppMainSearchBox from "../SearchInputPack/AppMainSearchBox";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
-import { NavLink, userSetting } from "../../Types/Types";
+import { NavLink } from "../../Types/Types";
 import LogoutButton from "../OneTruthyLogicPlaceButtons/LogoutButton";
+import { useAuth } from "../../context/AuthContext";
 
 const linksListDrawer: NavLink[] = [
   {
@@ -43,16 +44,15 @@ const linksListDrawer: NavLink[] = [
   },
 ];
 
-const userSettingsListDrawer: userSetting[] = [
-  { label: "Settings", icon: <SettingsOutlinedIcon />, href: "/settings" },
-  { label: "Login", icon: <LoginOutlinedIcon />, href: "/login" },
-];
+
 
 export default function DrawerNav() {
+  const { isAuthenticated } = useAuth();
   const [open, setOpen] = useState(false);
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
+
 
   const DrawerList = (
     <Box sx={{ width: { xs: "70vw", sm: "300px" } }} role="presentation">
@@ -78,7 +78,7 @@ export default function DrawerNav() {
       <Divider />
       <List onClick={toggleDrawer(false)}>
         {linksListDrawer.map((link, i) => (
-          <Link to={link.href} key={i} style={{ textDecoration: "none" }}>
+          <Link to={""} key={i} style={{ textDecoration: "none" }}>
             <ListItem>
               <ListItemButton sx={{ color: theme.palette.grey[700] }}>
                 <ListItemIcon sx={{ color: theme.palette.grey[700] }}>
@@ -98,26 +98,40 @@ export default function DrawerNav() {
 
       {/* User Settings */}
       <List onClick={toggleDrawer(false)}>
-        {userSettingsListDrawer.map(
-          (link, i) =>
-            link.href && (
-              <Link to={link.href} key={i} style={{ textDecoration: "none" }}>
-                <ListItem>
-                  <ListItemButton sx={{ color: theme.palette.grey[700] }}>
-                    <ListItemIcon sx={{ color: theme.palette.grey[700] }}>
-                      {link.icon}
-                    </ListItemIcon>
-                    <ListItemText
-                      sx={{ color: theme.palette.grey[700] }}
-                      primary={link.label}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              </Link>
-            )
-        )}
-        {/* After Looping Login button not link (separated Logic component) */}
-        <LogoutButton place="drawer" />
+        {/* Settings */}
+
+        {isAuthenticated && <Link to={"/settings"}  style={{ textDecoration: "none" }}>
+          <ListItem>
+            <ListItemButton sx={{ color: theme.palette.grey[700] }}>
+              <ListItemIcon sx={{ color: theme.palette.grey[700] }}>
+                {<SettingsOutlinedIcon />}
+              </ListItemIcon>
+              <ListItemText
+                sx={{ color: theme.palette.grey[700] }}
+                primary={"Settings"}
+              />
+            </ListItemButton>
+          </ListItem>
+        </Link>}
+
+        {/* Login */}
+
+        {!isAuthenticated  && <Link to={"/login"}  style={{ textDecoration: "none" }}>
+          <ListItem>
+            <ListItemButton sx={{ color: theme.palette.grey[700] }}>
+              <ListItemIcon sx={{ color: theme.palette.grey[700] }}>
+                {<LoginOutlinedIcon />}
+              </ListItemIcon>
+              <ListItemText
+                sx={{ color: theme.palette.grey[700] }}
+                primary={"Login"}
+              />
+            </ListItemButton>
+          </ListItem>
+        </Link>}
+
+        {/* Logout */}
+        {isAuthenticated && <LogoutButton place="drawer" />}
       </List>
     </Box>
   );

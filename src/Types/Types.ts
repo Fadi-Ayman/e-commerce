@@ -7,11 +7,6 @@ export type NavLink = {
   icon?: JSX.Element;
 };
 
-export type userSetting = {
-  label: string;
-  icon: JSX.Element;
-  href: string;
-};
 
 export type Logo = { label: string; imageSrc: string };
 
@@ -41,3 +36,10 @@ export type CartItemType = Pick<ProductType, "id" | "name" | "image" | "price"> 
     subTotal: number;
   }
 
+  export type LocalStorageUser = {
+    id:string
+    firstName: string;
+    lastName: string;
+    email: string;
+    image: string;
+  };

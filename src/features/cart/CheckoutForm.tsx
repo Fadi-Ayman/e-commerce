@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentCartPage } from "../../store/CartSlice";
 import { RootState } from "../../store/store";
 import { ApiOrders } from "../../Types/ApiTypes";
+import { useAuth } from "../../context/AuthContext";
 
 export type CheckoutFormInputsType = {
   firstName: string;
@@ -19,15 +20,7 @@ export type CheckoutFormInputsType = {
   city: string;
 };
 
-const initialValues: CheckoutFormInputsType = {
-  firstName: "",
-  lastName: "",
-  phoneNumber: "",
-  email: "",
-  governorate: "",
-  city: "",
-  address: "",
-};
+
 
 function CheckoutForm() {
   const cartList = useSelector((state: RootState) => state.Cart.cartList);
@@ -35,7 +28,17 @@ function CheckoutForm() {
   const cartTotalPrice = cartList.reduce(
     (total, item) => total + item.subTotal ,0
   )
+  const {userData}= useAuth()
 
+  const initialValues: CheckoutFormInputsType = {
+    firstName: userData?.firstName || "",
+    lastName: userData?.lastName || "",
+    phoneNumber: "",
+    email: userData?.email || "",
+    governorate: "",
+    city: "",
+    address: "",
+  };
 
   const {
     register,
@@ -87,7 +90,6 @@ function CheckoutForm() {
       }}
     >
       <ContactInformationForm register={register} errors={errors} />
-      
       <ShippingAddressForm
         register={register}
         errors={errors}

@@ -4,6 +4,7 @@ import { theme } from "../../styles/theme";
 import ProductBadge from "./ProductBadge";
 import { ProductCardImageType } from "../../Types/ProductTypes";
 import AddToWishListButton from "../OneTruthyLogicPlaceButtons/AddToWishListButton";
+import { useAuth } from "../../context/AuthContext";
 
 function ProductCardImage({
   image,
@@ -11,9 +12,10 @@ function ProductCardImage({
   tag,
   discount,
   id,
-  
+  price,
 }: ProductCardImageType) {
   const isDiscount = discount ? true : false;
+  const { isAuthenticated } = useAuth();
 
   return (
     <Box
@@ -32,7 +34,7 @@ function ProductCardImage({
         image={image}
         alt={name}
       />
-      
+
       {/* Tags & Discount Badges Container */}
       <Box
         sx={{
@@ -50,7 +52,15 @@ function ProductCardImage({
         {isDiscount && <ProductBadge data={discount} />}
       </Box>
 
-      <AddToWishListButton id={id} isInCard={true} />
+      {isAuthenticated && (
+        <AddToWishListButton
+          image={image}
+          name={name}
+          price={price}
+          id={id}
+          isInCard={true}
+        />
+      )}
     </Box>
   );
 }

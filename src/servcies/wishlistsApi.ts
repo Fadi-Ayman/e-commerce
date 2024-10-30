@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ApiuserData } from "../Types/ApiTypes";
+import { ApiWishlistItem } from "../Types/ApiTypes";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -8,13 +8,9 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 export async function addWishlistRowForNewUser(
   userId: string,
   accessToken: string
-) {
+): Promise<void> {
   const url = `${BASE_URL}/rest/v1/wishlists`;
-
-  const bodyParams = {
-    userId,
-  };
-
+  const bodyParams = { userId };
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${accessToken}`,
@@ -22,28 +18,31 @@ export async function addWishlistRowForNewUser(
   };
 
   try {
-    await axios.post(url, bodyParams, { headers });
+    const response = await axios.post(url, bodyParams, { headers });
+    if (!(response.status >= 200 && response.status < 300)) {
+      throw new Error(`Unexpected response status: ${response.status}`);
+    }
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error("Axios error:", error.message);
-      if (error.response) {
-        console.error("Response error message:", error.response.data.message);
-      }
+      const errorMessage =
+        error.response?.data?.message || "Unknown server error";
+      throw new Error(`Failed to create wishlist entry: ${errorMessage}`);
     } else {
-      console.error("Unexpected error:", error);
+      throw new Error(
+        "An unexpected error occurred while creating wishlist entry"
+      );
     }
   }
 }
 
-export async function getUserWishlists(userId: string) {
+export async function getUserWishlists(): Promise<ApiWishlistItem[]> {
+  if (!localStorage.getItem("token")) {
+    return [];
+  }
+
+  const userId = JSON.parse(localStorage.getItem("user")!).id;
   const url = `${BASE_URL}/rest/v1/wishlists?select=*,wishlist_items(*)&userId=eq.${userId}`;
-
-  const userData:ApiuserData = JSON.parse(
-    localStorage.getItem("userData") || "{}"
-  )
-
-  const accessToken = userData.accessToken
-
+  const accessToken = localStorage.getItem("token");
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${accessToken}`,
@@ -52,40 +51,44 @@ export async function getUserWishlists(userId: string) {
 
   try {
     const res = await axios.get(url, { headers });
-    return res.data;
+    if (!(res.status >= 200 && res.status < 300)) {
+      throw new Error(`Unexpected response status: ${res.status}`);
+    }
+    const wishlistId = res.data[0].id;
+    if (!localStorage.getItem("wishlistId")) {
+      localStorage.setItem("wishlistId", wishlistId);
+    }
+
+    return res.data[0].wishlist_items;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error("Axios error:", error.message);
-      if (error.response) {
-        console.error("Response error message:", error.response.data.message);
-      }
+      const errorMessage =
+        error.response?.data?.message || "Unknown server error";
+      throw new Error(`Failed to fetch user wishlists: ${errorMessage}`);
     } else {
-      console.error("Unexpected error:", error);
+      throw new Error(
+        "An unexpected error occurred while fetching user wishlists"
+      );
     }
   }
 }
 
-export async function addNewWishListItem(
-  wishlistId: string,
-  productId: string,
-  productName: string,
-  productImage: string,
-  productPrice: number
-) {
+export async function addNewWishListItem({
+  image,
+  name,
+  price,
+  productId,
+  wishlistId,
+}: Omit<ApiWishlistItem, "id">): Promise<void> {
   const url = `${BASE_URL}/rest/v1/wishlist_items`;
   const bodyParams = {
     wishlistId,
     productId,
-    productName,
-    productImage,
-    productPrice,
+    name,
+    image,
+    price,
   };
-
-  const userData:ApiuserData = JSON.parse(
-    localStorage.getItem("userData") || "{}"
-  )
-  const accessToken = userData.accessToken
-
+  const accessToken = localStorage.getItem("token");
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${accessToken}`,
@@ -93,28 +96,26 @@ export async function addNewWishListItem(
   };
 
   try {
-    await axios.post(url, bodyParams, { headers });
+    const res = await axios.post(url, bodyParams, { headers });
+    if (!(res.status >= 200 && res.status < 300)) {
+      throw new Error(`Unexpected response status: ${res.status}`);
+    }
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error("Axios error:", error.message);
-      if (error.response) {
-        console.error("Response error message:", error.response.data.message);
-      }
+      const errorMessage =
+        error.response?.data?.message || "Unknown server error";
+      throw new Error(`Failed to add new wishlist item: ${errorMessage}`);
     } else {
-      console.error("Unexpected error:", error);
+      throw new Error(
+        "An unexpected error occurred while adding a new wishlist item"
+      );
     }
   }
 }
 
-
-export async function deleteWishListItem(wishlistItemId: string) {
-  const url = `${BASE_URL}/rest/v1/wishlist_items?id=eq.${wishlistItemId}`;
-
-  const userData:ApiuserData = JSON.parse(
-    localStorage.getItem("userData") || "{}"
-  )
-  const accessToken = userData.accessToken
-
+export async function deleteWishListItem(productId: string): Promise<void> {
+  const url = `${BASE_URL}/rest/v1/wishlist_items?productId=eq.${productId}`;
+  const accessToken = localStorage.getItem("token");
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${accessToken}`,
@@ -122,16 +123,19 @@ export async function deleteWishListItem(wishlistItemId: string) {
   };
 
   try {
-    await axios.delete(url, { headers });
-    
+    const res = await axios.delete(url, { headers });
+    if (!(res.status >= 200 && res.status < 300)) {
+      throw new Error(`Unexpected response status: ${res.status}`);
+    }
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error("Axios error:", error.message);
-      if (error.response) {
-        console.error("Response error message:", error.response.data.message);
-      }
+      const errorMessage =
+        error.response?.data?.message || "Unknown server error";
+      throw new Error(`Failed to delete wishlist item: ${errorMessage}`);
     } else {
-      console.error("Unexpected error:", error);
+      throw new Error(
+        "An unexpected error occurred while deleting the wishlist item"
+      );
     }
   }
 }

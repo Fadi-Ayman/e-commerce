@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { theme } from "../../styles/theme";
 import { LoginFormInputs } from "../../Types/ApiTypes";
-import useLogin from "../../hooks/authHooks/useLogin";
+import { useAuth } from "../../context/AuthContext";
 
 
 
@@ -29,7 +29,7 @@ function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const id = useId();
-  const { Login, isLoggingIn } = useLogin();
+  const { Login, isLoggingIn } = useAuth();
 
   const {
     register,

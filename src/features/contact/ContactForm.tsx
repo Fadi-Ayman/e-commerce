@@ -2,10 +2,19 @@ import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { theme } from "../../styles/theme";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function ContactForm() {
-  const [fullName, setFullName] = useState<string>("");
-  const [emailAddress, setEmailAddress] = useState<string>("");
+  const { isAuthenticated, userData } = useAuth();
+  const navigate = useNavigate();
+
+  const [fullName, setFullName] = useState<string | "">(
+    userData?.firstName || ""
+  );
+  const [emailAddress, setEmailAddress] = useState<string | "">(
+    userData?.email || ""
+  );
   const [message, setMessage] = useState<string>("");
 
   function handleFormAction(e: React.FormEvent<HTMLFormElement>): void {
@@ -50,6 +59,7 @@ function ContactForm() {
         <TextField
           fullWidth
           id="fullName"
+          disabled
           label="Your Name"
           value={fullName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +83,7 @@ function ContactForm() {
         </label>
         <TextField
           fullWidth
+          disabled
           id="emailAddress"
           label="Your Email"
           value={emailAddress}
@@ -90,7 +101,6 @@ function ContactForm() {
             fontWeight: "bold",
             color: theme.palette.grey[300],
             fontSize: "0.9rem",
-            
           }}
           htmlFor="message"
         >
@@ -100,6 +110,7 @@ function ContactForm() {
           fullWidth
           id="message"
           label="Your Message"
+          disabled={!isAuthenticated}
           value={message}
           multiline
           rows={5}
@@ -109,13 +120,28 @@ function ContactForm() {
         />
       </Box>
 
-      <Button
-        variant="contained"
-        sx={{ mt: "0.5rem", bgcolor: "grey.700", width: "fit-content" }}
-        type="submit"
-      >
-        Send Message
-      </Button>
+      {isAuthenticated && (
+        <Button
+          variant="contained"
+          sx={{ mt: "0.5rem", bgcolor: "grey.700", width: "fit-content" }}
+          type="submit"
+        >
+          Send Message
+        </Button>
+      )}
+
+      {!isAuthenticated && (
+        <Button
+          variant="contained"
+          sx={{ mt: "0.5rem", bgcolor: "grey.700", width: "fit-content" }}
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/login");
+          }}
+        >
+          Login
+        </Button>
+      )}
     </Box>
   );
 }

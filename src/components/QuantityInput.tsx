@@ -1,14 +1,14 @@
 import { Box, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { useAuth } from "../context/AuthContext";
 
 const MIN_QUANTITY = 1;
 const MAX_QUANTITY = 20;
 
-
 type QuantityInputProps = {
   quantity: number;
-  setQuantity: (quantity: number) => void
+  setQuantity: (quantity: number) => void;
   gridRow?: string;
   gridColumn?: string;
   isInTable?: boolean;
@@ -21,7 +21,10 @@ function QuantityInput({
   gridRow,
   gridColumn,
 }: QuantityInputProps) {
+  const { isAuthenticated } = useAuth();
+
   function handleMinus() {
+    if (!isAuthenticated) return;
     if (quantity <= MIN_QUANTITY) {
       return;
     }
@@ -29,6 +32,7 @@ function QuantityInput({
   }
 
   function handlePlus() {
+    if (!isAuthenticated) return;
     if (quantity >= MAX_QUANTITY) {
       return;
     }
@@ -55,7 +59,7 @@ function QuantityInput({
         <IconButton
           size="small"
           onClick={handleMinus}
-          disabled={quantity === MIN_QUANTITY}
+          disabled={quantity === MIN_QUANTITY || !isAuthenticated}
           sx={{ color: "black", padding: { xs: "0.3rem", md: "0.3rem" } }}
         >
           <RemoveIcon sx={{ fontSize: { xs: "16px", md: "20px" } }} />
@@ -63,6 +67,7 @@ function QuantityInput({
 
         <Box
           sx={{
+            color: isAuthenticated ? "black" : "gray",
             textAlign: "center",
             fontWeight: "500",
             fontSize: { xs: "14px", md: "18px" },
@@ -74,7 +79,7 @@ function QuantityInput({
         <IconButton
           size="small"
           onClick={handlePlus}
-          disabled={quantity === MAX_QUANTITY}
+          disabled={quantity === MAX_QUANTITY || !isAuthenticated}
           sx={{ color: "black", padding: { xs: "0.3rem", md: "0.3rem" } }}
         >
           <AddIcon sx={{ fontSize: { xs: "15px", md: "20px" } }} />

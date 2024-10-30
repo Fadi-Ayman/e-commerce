@@ -2,8 +2,13 @@ import { Box } from "@mui/material";
 
 import LoginForm from "../features/login/LoginForm";
 import LoginAndRegisterImage from "../components/LoginAndRegisterImage";
+import { useAuth } from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function Login() {
+  const {isAuthenticated} = useAuth()
+  if(isAuthenticated) return <Navigate to="/home" />
+
   return (
     <Box
       sx={{

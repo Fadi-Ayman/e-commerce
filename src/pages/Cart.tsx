@@ -1,22 +1,24 @@
 import { Box } from "@mui/material";
 import StepperMui from "../features/cart/StepperMui";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { RootState } from "../store/store";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { setCurrentCartPage } from "../store/CartSlice";
+import { useSelector } from "react-redux";
+
+import { useAuth } from "../context/AuthContext";
 
 function Cart() {
+  const { isAuthenticated } = useAuth();
   const currentPage = useSelector(
     (state: RootState) => state.Cart.currentCartPage
   );
 
-  const dispatch = useDispatch();
 
-  // Always Set To current page to  0 on mount , To Protect cart Routs , as also do other Checks in child pages
-  useEffect(() => {
-    dispatch(setCurrentCartPage(0));
-  }, [dispatch]);
+
+
+  if (!isAuthenticated) {
+    return <Navigate replace to="/login" />;
+  }
+
 
   return (
     <>

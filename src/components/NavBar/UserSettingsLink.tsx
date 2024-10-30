@@ -13,8 +13,11 @@ import { useNavigate } from "react-router-dom";
 import { theme } from "../../styles/theme";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import LogoutButton from "../OneTruthyLogicPlaceButtons/LogoutButton";
+import { useAuth } from "../../context/AuthContext";
 
 function UserSettingsLink() {
+  const { isAuthenticated } = useAuth();
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -27,7 +30,7 @@ function UserSettingsLink() {
     navigate(path);
   };
 
-  const handleCloseMenue = () => {
+  const handleCloseMenu = () => {
     setAnchorEl(null);
   };
 
@@ -84,24 +87,24 @@ function UserSettingsLink() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={() => handleNavigate("/settings")}>
+        {isAuthenticated && <MenuItem onClick={() => handleNavigate("/settings")}>
           <ListItemIcon>
             <SettingsOutlinedIcon fontSize="small" />
           </ListItemIcon>
           Settings
-        </MenuItem>
+        </MenuItem>}
 
-        <MenuItem onClick={() => handleNavigate("/login")}>
+        {isAuthenticated === false && <MenuItem onClick={() => handleNavigate("/login")}>
           <ListItemIcon>
             <LoginOutlinedIcon fontSize="small" />
           </ListItemIcon>
           Login
-        </MenuItem>
+        </MenuItem>}
 
-        <LogoutButton
-          closeMenuForNavMenu={handleCloseMenue}
+        { isAuthenticated && <LogoutButton
+          closeMenuForNavMenu={handleCloseMenu}
           place="navbarMenu"
-        />
+        />}
       </Menu>
     </Box>
   );

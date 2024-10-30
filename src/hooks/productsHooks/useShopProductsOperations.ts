@@ -12,7 +12,7 @@ import useProducts from "./useProducts";
 function useShopProductsOperations() {
   const { allProducts, isError, error, isLoading } = useProducts();
 
-  const Products: ProductType[] = allProducts;
+  const Products: ProductType[] | undefined = allProducts;
 
   const [paginationPage, setPaginationPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams({});
@@ -43,7 +43,7 @@ function useShopProductsOperations() {
   );
 
   const totalPages = calculateTotalPages(
-    preparedProductsArray?.length,
+    preparedProductsArray?.length || 0,
     MaxProductsNumberPerPage
   );
 

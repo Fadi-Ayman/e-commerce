@@ -38,7 +38,7 @@ function ProductDetails({
         display: "grid",
         gap: { xs: "2rem", lg: "5rem" },
         gridTemplateColumns: { xs: "1fr", md: "repeat(2,1fr)" },
-        paddingBottom:{xs:"0.5rem",md:"1rem"}
+        paddingBottom: { xs: "0.5rem", md: "1rem" },
       }}
     >
       <ProductImages images={images} />

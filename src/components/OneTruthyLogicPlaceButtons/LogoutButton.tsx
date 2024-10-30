@@ -7,10 +7,7 @@ import {
 } from "@mui/material";
 import { theme } from "../../styles/theme";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { resetEntireCartData } from "../../store/CartSlice";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 type LogoutButtonProps = {
   place: "drawer" | "navbarMenu" | "userProfile";
@@ -18,23 +15,13 @@ type LogoutButtonProps = {
 };
 
 function LogoutButton({ place, closeMenuForNavMenu }: LogoutButtonProps) {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  function handleLogout(): void {
-    localStorage.clear()
-    dispatch(resetEntireCartData())
-    navigate("/home")
-    toast.success("logged out successfully");
-  }
-
-
+  const { Logout } = useAuth();
 
   if (place === "drawer") {
     return (
       <ListItem key={Math.random()}>
         <ListItemButton
-          onClick={handleLogout}
+          onClick={Logout}
           sx={{ color: theme.palette.grey[700] }}
         >
           <ListItemIcon sx={{ color: theme.palette.grey[700] }}>
@@ -53,7 +40,7 @@ function LogoutButton({ place, closeMenuForNavMenu }: LogoutButtonProps) {
     return (
       <MenuItem
         onClick={() => {
-          handleLogout();
+          Logout();
           if (closeMenuForNavMenu) closeMenuForNavMenu();
         }}
       >
@@ -71,7 +58,7 @@ function LogoutButton({ place, closeMenuForNavMenu }: LogoutButtonProps) {
         component="button"
         sx={{ width: "100%" }}
         onClick={() => {
-          handleLogout();
+          Logout();
         }}
       >
         <ListItemIcon
@@ -82,9 +69,7 @@ function LogoutButton({ place, closeMenuForNavMenu }: LogoutButtonProps) {
         <ListItemText primary="Logout" />
       </ListItemButton>
     );
-  }
-  
-  else {
+  } else {
     return null;
   }
 }

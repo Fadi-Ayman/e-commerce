@@ -16,8 +16,8 @@ import { useNavigate } from "react-router-dom";
 import AgreementsCheckBox from "./AgreementsCheckBox";
 import { useForm } from "react-hook-form";
 import { theme } from "../../styles/theme";
-import useRegister from './../../hooks/authHooks/useRegister';
 import { RegisterFormInputs } from "../../Types/ApiTypes";
+import { useAuth } from "../../context/AuthContext";
 
 
 
@@ -33,7 +33,7 @@ function RegisterForm() {
   const [isAgreedLegalTemrs, setIsAgreedLegalTemrs] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const id = useId();
-  const {Register, isRegistering} = useRegister()
+  const {Register, isRegistering} = useAuth()
 
   const {
     register,
@@ -42,7 +42,7 @@ function RegisterForm() {
   } = useForm<RegisterFormInputs>({ defaultValues: RegisterFormInitialValues });
 
   function onSubmit(data: RegisterFormInputs) {
-    Register(data)
+    Register(data);
   }
 
   const handleClickShowPassword = () =>

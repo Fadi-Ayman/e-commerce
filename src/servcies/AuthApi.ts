@@ -56,6 +56,7 @@ export async function signUp({
         throw new Error(error.response.data.msg);
       }
     }
+    throw error;
   }
 }
 
@@ -95,5 +96,6 @@ export async function signIn({ email, password }: LoginFormInputs) {
         throw new Error(error.response.data.msg);
       }
     }
+    throw error;
   }
 }

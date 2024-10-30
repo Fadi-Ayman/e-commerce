@@ -1,7 +1,6 @@
 import { ProductType } from "../Types/ProductTypes";
 import { OrdersRowsType } from "../Types/Types";
 
-export const DummyOldPassword: string = "0000000000";
 
 export const DummyProducts: ProductType[] = [
   {

@@ -49,6 +49,7 @@ export default function ProductCard({
         image={image}
         name={name}
         discount={discount}
+        price={price}
       />
       {/* Product Details */}
       <ProductCardDetails

@@ -52,5 +52,5 @@ export type ProductCardDetailsType = Pick<
 
 export type ProductCardImageType = Pick<
   ProductCardType,
-  "name" | "image" | "tag" | "discount" | "id"
+  "name" | "image" | "tag" | "discount" | "id" | "price"
 >;

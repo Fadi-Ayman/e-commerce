@@ -57,6 +57,7 @@ function ContactInformationForm({
           helperText={errors.firstName?.message}
           error={errors.firstName ? true : false}
           fullWidth
+          disabled
           id={id + "firstName"}
           placeholder={"First Name"}
           variant="outlined"
@@ -82,6 +83,7 @@ function ContactInformationForm({
           helperText={errors.lastName?.message}
           error={errors.lastName ? true : false}
           fullWidth
+          disabled
           id={id + "lastName"}
           placeholder={"Last Name"}
           variant="outlined"
@@ -126,6 +128,7 @@ function ContactInformationForm({
           helperText={errors.email?.message}
           error={errors.email ? true : false}
           fullWidth
+          disabled
           id={id + "email"}
           placeholder={"Email"}
           variant="outlined"
