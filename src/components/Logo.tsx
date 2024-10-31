@@ -29,7 +29,7 @@ function Logo({
         transition: "all 0.3s ease",
         cursor: "pointer",
       }}
-      onClick={() => navigate("/")}
+      onClick={() => navigate("/home")}
     >
       <img
         style={{
@@ -37,7 +37,7 @@ function Logo({
           height: "100%",
           filter: color === "white" ? "brightness(0) invert(1)" : undefined,
         }}
-        src="/logoCropped.png"
+        src="/logo.png"
         alt="Vario"
       />
     </Box>

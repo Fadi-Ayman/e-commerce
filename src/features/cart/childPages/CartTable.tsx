@@ -38,7 +38,7 @@ function CartTable() {
       }}
     >
       {isEmptyCart ? (
-        <EmptyDataMsg withGoHome message="Your Cart is Empty" />
+        <EmptyDataMsg navigateToPage="shop" message="Your Cart is Empty" />
       ) : (
         <>
           <CustomTable

@@ -5,12 +5,14 @@ function EmptyDataMsg({
   message,
   withGoBack = false,
   withGoHome = false,
+  navigateToPage = "",
   height = "65vh",
 }: {
   message: string;
   withGoBack?: boolean;
   withGoHome?: boolean;
   height?: string;
+  navigateToPage?: string;
 }) {
   const navigate = useNavigate();
 
@@ -51,9 +53,20 @@ function EmptyDataMsg({
           component={"span"}
           variant="body1"
           sx={{ cursor: "pointer", textDecoration: "underline" }}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/home")}
         >
           Go Home
+        </Typography>
+      )}
+
+      {navigateToPage && (
+        <Typography
+          component={"span"}
+          variant="body1"
+          sx={{ cursor: "pointer", textDecoration: "underline" }}
+          onClick={() => navigate(`/${navigateToPage}`)}
+        >
+          Go {navigateToPage}
         </Typography>
       )}
     </Box>

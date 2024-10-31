@@ -21,7 +21,7 @@ function LoginAndRegisterImage() {
           objectFit: "contain",
           mixBlendMode: "darken",
         }}
-        src="loginImage.jpg"
+        src="/loginImage.jpg"
         alt="Login Image"
       />
       {/* Logo */}

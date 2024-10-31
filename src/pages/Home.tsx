@@ -16,7 +16,7 @@ import {
 import { useMemo } from "react";
 
 function Home() {
-  const { allProducts, isError, isLoading, error } = useProducts();
+  const { allProducts = [], isError, isLoading, error } = useProducts();
 
   const TopRatingProducts = useMemo(() => {
     return allProducts

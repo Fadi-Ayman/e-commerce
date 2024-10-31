@@ -1,4 +1,3 @@
-import { ProductType } from "./ProductTypes";
 import { CartItemType } from "./Types";
 
 export type PaymentMethods = "pay-on-delivery" | "credit-card";
@@ -24,7 +23,6 @@ export type ApiOrders = {
   userDetails: userDataForOrders;
   orderItems: CartItemType[];
 };
-
 
 
 export type ApiWishlistItem = {

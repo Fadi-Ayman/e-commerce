@@ -53,7 +53,6 @@ export default function DrawerNav() {
     setOpen(newOpen);
   };
 
-
   const DrawerList = (
     <Box sx={{ width: { xs: "70vw", sm: "300px" } }} role="presentation">
       {/* Search Box */}
@@ -78,7 +77,7 @@ export default function DrawerNav() {
       <Divider />
       <List onClick={toggleDrawer(false)}>
         {linksListDrawer.map((link, i) => (
-          <Link to={""} key={i} style={{ textDecoration: "none" }}>
+          <Link to={link.href} key={i} style={{ textDecoration: "none" }}>
             <ListItem>
               <ListItemButton sx={{ color: theme.palette.grey[700] }}>
                 <ListItemIcon sx={{ color: theme.palette.grey[700] }}>

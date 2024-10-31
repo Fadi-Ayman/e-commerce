@@ -1,6 +1,5 @@
-// AuthContext.tsx
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signIn, signUp } from "../servcies/AuthApi";
 import { updateUserTextForm, updateUserImage } from "../servcies/userApi";
 import { useNavigate } from "react-router-dom";
@@ -30,7 +29,7 @@ type AuthContextType = {
   isUpdatingImage: boolean;
   isRegistering: boolean;
   isLoggingIn: boolean;
-  isUpdatingUser: boolean; // State to indicate if updating user is in progress
+  isUpdatingUser: boolean;
   userData: Omit<ApiUserData, "accessToken"> | null;
 };
 
@@ -43,6 +42,7 @@ export default function AuthProvider({
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [userData, setUserData] = useState<Omit<
     ApiUserData,
@@ -147,12 +147,13 @@ export default function AuthProvider({
 
   // Logout
   const Logout = () => {
-    localStorage.clear();
+    navigate("/home");
     dispatch(resetEntireCartData());
+    toast.success("Logged out successfully");
+    localStorage.clear();
     setUserData(null);
     setIsAuthenticated(false);
-    navigate("/home");
-    toast.success("Logged out successfully");
+    queryClient.invalidateQueries();
   };
 
   const Login = (inputs: LoginFormInputs) => {
@@ -199,6 +200,7 @@ export default function AuthProvider({
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {

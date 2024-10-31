@@ -33,6 +33,7 @@ function ProductCardImage({
         component="img"
         image={image}
         alt={name}
+
       />
 
       {/* Tags & Discount Badges Container */}

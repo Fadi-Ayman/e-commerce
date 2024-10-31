@@ -15,6 +15,7 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import { CheckoutFormInputsType } from "./CheckoutForm";
+import useOrders from "../../hooks/ordersHooks/useOrders";
 
 type ShippingAddressFormProps = {
   register: UseFormRegister<CheckoutFormInputsType>;
@@ -33,6 +34,8 @@ function ShippingAddressForm({
   const [selectedGovernorate, setSelectedGovernorate] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
   const [addressValue, setAddressValue] = useState<string>("");
+  const { addOrderLoading } = useOrders();
+
 
   useEffect(() => {
     if (selectedGovernorate !== "" && selectedCity !== "") {
@@ -71,6 +74,7 @@ function ShippingAddressForm({
             sx={{ width: "100%" }}
             id={id + "governorate"}
             value={selectedGovernorate}
+            disabled={addOrderLoading}
             onChange={(e) => {
               setSelectedGovernorate(e.target.value);
               clearErrors(["governorate", "city"]);
@@ -124,12 +128,13 @@ function ShippingAddressForm({
                 return true;
               },
             })}
-            disabled={!selectedGovernorate}
+            disabled={!selectedGovernorate || addOrderLoading}
             sx={{ width: "100%" }}
             id={id + "city"}
             defaultValue=""
             onChange={(e) => setSelectedCity(e.target.value)}
             value={selectedCity}
+            
             displayEmpty
             renderValue={(selected) => {
               if (selected.length === 0) {
@@ -185,6 +190,8 @@ function ShippingAddressForm({
           fullWidth
           id={id + "address"}
           value={addressValue}
+          disabled={addOrderLoading}
+
           onChange={(e) => setAddressValue(e.target.value)}
           error={!!errors.address}
           helperText={errors.address ? errors.address.message : false}

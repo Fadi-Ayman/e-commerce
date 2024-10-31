@@ -15,9 +15,11 @@ export default function   CustomTableItem({
     <Box
       sx={{
         display: "grid",
+        
         gap: gap,
         gridTemplateColumns: gridTemplateColumns,
         placeItems: "center",
+
         width: "100%",
 
       }}

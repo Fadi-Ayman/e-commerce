@@ -5,6 +5,7 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import { CheckoutFormInputsType } from "./CheckoutForm";
+import useOrders from "../../hooks/ordersHooks/useOrders";
 
 type ContactInformationFormProps = {
   register: UseFormRegister<CheckoutFormInputsType>;
@@ -16,6 +17,8 @@ function ContactInformationForm({
   errors,
 }: ContactInformationFormProps) {
   const id = useId();
+  const { addOrderLoading } = useOrders();
+
 
   return (
     <Box
@@ -108,6 +111,7 @@ function ContactInformationForm({
           fullWidth
           id={id + "phoneNumber"}
           placeholder={"Phone Number"}
+          disabled={addOrderLoading}
           variant="outlined"
           autoComplete="on"
 

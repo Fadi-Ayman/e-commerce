@@ -2,9 +2,17 @@ import { Box } from "@mui/material";
 import { Navigate, Outlet } from "react-router-dom";
 import UserSettingsSideBar from "../features/settings/UserSettingsSideBar";
 import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 function UserSettings() {
   const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      toast.error("Please Login First");
+    }
+  }, [isAuthenticated]);
 
   if (!isAuthenticated) {
     return <Navigate replace to="/login" />;

@@ -5,6 +5,8 @@ import { RootState } from "../store/store";
 import { useSelector } from "react-redux";
 
 import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 function Cart() {
   const { isAuthenticated } = useAuth();
@@ -14,6 +16,12 @@ function Cart() {
 
 
 
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      toast.error("Please Login First");
+    }
+  }, [isAuthenticated]);
 
   if (!isAuthenticated) {
     return <Navigate replace to="/login" />;

@@ -7,7 +7,7 @@ import { RootState } from "../../store/store";
 import useShopProductsOperations from "../../hooks/productsHooks/useShopProductsOperations";
 
 function ShopProducts() {
-  const { currentProducts, isError, isLoading, error } =
+  const { currentProducts = [], isError, isLoading, error } =
     useShopProductsOperations();
   const MaxProductsNumber = useSelector(
     (state: RootState) => state.ProductsGrid.MaxProductsNumber

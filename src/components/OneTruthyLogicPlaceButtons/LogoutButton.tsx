@@ -40,8 +40,8 @@ function LogoutButton({ place, closeMenuForNavMenu }: LogoutButtonProps) {
     return (
       <MenuItem
         onClick={() => {
-          Logout();
           if (closeMenuForNavMenu) closeMenuForNavMenu();
+          Logout();
         }}
       >
         <ListItemIcon>

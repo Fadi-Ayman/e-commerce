@@ -51,15 +51,15 @@ export async function updateUserTextForm({
     return userData;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error("Axios error:", error.message);
       if (error.response) {
-        throw new Error(error.response.data.msg);
+        throw new Error(error.response.data.msg ||error.response.data);
       }
+      throw new Error("An error occurred while updating user data."); 
     }
-    console.error(error);
-    throw new Error("An unexpected error occurred"); // Fallback error handling
+    throw new Error("An unexpected error occurred"); 
   }
 }
+
 
 export async function verifyPassword(
   email: string,
@@ -88,8 +88,6 @@ export async function verifyPassword(
       // If there's a 400 error, throw a specific error message for incorrect password
       throw new Error("Old password is wrong");
     }
-    // Log and rethrow any other errors
-    console.error("Error verifying password:", error);
     throw new Error("An error occurred while verifying the password");
   }
 }

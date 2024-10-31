@@ -2,11 +2,14 @@ import { Box, Typography } from "@mui/material";
 
 import CustomTable from "../../../components/CustomTable/CustomTable";
 import { OrderListHeaderLabels } from "../../../utils/constants";
-import { DummyordersRows } from "../../../utils/dummyData";
 import OrderItemRow from "../OrderItemRow";
 import EmptyDataMsg from "../../../components/EmptyDataMsg";
+import useOrders from "../../../hooks/ordersHooks/useOrders";
+import PageLoadingSpinner from "../../../components/PageLoadingSpinner";
 
 function Orders() {
+  const { orders =[], isOrdersLoading, isOrdersError, ordersError } = useOrders();
+
   return (
     <Box
       component={"section"}
@@ -28,15 +31,19 @@ function Orders() {
       </Typography>
 
       {/* Orders Table */}
-      {DummyordersRows.length === 0 ? (
+      {isOrdersLoading ? (
+        <PageLoadingSpinner />
+      ) : isOrdersError ? (
+        <EmptyDataMsg message={ordersError?.message || ""} />
+      ) : orders.length === 0 ? (
         <EmptyDataMsg message="No Orders Yet" />
       ) : (
         <CustomTable
           headerLabels={OrderListHeaderLabels}
-          gap="0.5rem"
+          gap="1rem"
           gridTemplateColumns="1fr 1fr 1fr 1fr"
         >
-          {DummyordersRows.map((order,i) => {
+          {orders.map((order, i) => {
             return (
               <OrderItemRow
                 key={i}

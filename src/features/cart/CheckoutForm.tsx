@@ -3,12 +3,14 @@ import ContactInformationForm from "./ContactInformationForm";
 import ShippingAddressForm from "./ShippingAddressForm";
 import { theme } from "../../styles/theme";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentCartPage } from "../../store/CartSlice";
 import { RootState } from "../../store/store";
 import { ApiOrders } from "../../Types/ApiTypes";
 import { useAuth } from "../../context/AuthContext";
+import { shippingPrice } from "../../utils/constants";
+import useOrders from "../../hooks/ordersHooks/useOrders";
+import { setCurrentCartPage } from "../../store/CartSlice";
+import { useNavigate } from "react-router-dom";
 
 export type CheckoutFormInputsType = {
   firstName: string;
@@ -20,15 +22,19 @@ export type CheckoutFormInputsType = {
   city: string;
 };
 
-
-
 function CheckoutForm() {
   const cartList = useSelector((state: RootState) => state.Cart.cartList);
-  const paymentMethodstate = useSelector((state: RootState) => state.Cart.paymentMethod);
-  const cartTotalPrice = cartList.reduce(
-    (total, item) => total + item.subTotal ,0
-  )
-  const {userData}= useAuth()
+  const paymentMethodstate = useSelector(
+    (state: RootState) => state.Cart.paymentMethod
+  );
+
+  const { userData } = useAuth();
+  const { addOrder } = useOrders();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const cartTotalPrice =
+    cartList.reduce((total, item) => total + item.subTotal, 0) + shippingPrice;
 
   const initialValues: CheckoutFormInputsType = {
     firstName: userData?.firstName || "",
@@ -50,26 +56,18 @@ function CheckoutForm() {
     defaultValues: initialValues,
   });
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch()
-
-
-
   function onSubmit(CheckoutFormData: CheckoutFormInputsType) {
-
-    const orderData: Omit<ApiOrders, "id"| "createdAt"> = {
+    const orderData: Omit<ApiOrders, "userId" | "id" | "createdAt"> = {
       status: "pending",
       totalPrice: cartTotalPrice,
       paymentMethod: paymentMethodstate,
       orderItems: cartList,
-      userId:"1",
-      userDetails: CheckoutFormData  
-    }
-    
-    // Send Order Request includes ( cartListData , userDetails from form )
-    console.log(orderData)
+      userDetails: CheckoutFormData,
+    };
+
+    addOrder(orderData);
     navigate("/cart/order-complete");
-    dispatch(setCurrentCartPage(2))
+    dispatch(setCurrentCartPage(2));
   }
 
   return (

@@ -4,7 +4,7 @@ import AboutImageConainer from "../features/about/AboutImageConainer";
 import NewArrivalsEveryWeek from "../features/about/NewArrivalsEveryWeek";
 import OurTeam from "../features/about/OurTeam";
 
-function Products() {
+function About() {
   return (
     <>
       <AboutImageConainer />
@@ -16,4 +16,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default About;

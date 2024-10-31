@@ -2,6 +2,8 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Box } from "@mui/material";
+import { Suspense } from "react";
+import PageLoadingSpinner from "../PageLoadingSpinner";
 
 function AppLayout() {
   return (
@@ -12,7 +14,9 @@ function AppLayout() {
         component={"main"}
         sx={{ width: "100%", minHeight: "95vh", overflow: "clip" }}
       >
-        <Outlet />
+        <Suspense fallback={<PageLoadingSpinner height="80vh" />}>
+          <Outlet />
+        </Suspense>
       </Box>
 
       <Footer />

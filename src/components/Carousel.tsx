@@ -30,18 +30,20 @@ type CarouselProps = {
     };
   };
   width?: string;
+  display?: "none"|"flex";
 };
 
 export default function Carousel({
   children,
   breakpoints,
   width = "100%",
+  display = "flex",
 }: CarouselProps) {
   return (
     <Swiper
       breakpoints={breakpoints}
       freeMode={true}
-      style={{ width: width, padding: "0.6rem 0.5rem" }}
+      style={{ width: width, padding: "0.6rem 0.5rem",display:display }}
       pagination={{
         clickable: true,
       }}

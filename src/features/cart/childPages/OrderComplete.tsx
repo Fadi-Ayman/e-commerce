@@ -1,15 +1,18 @@
-import { Button, Paper, Typography } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
 import { theme } from "../../../styles/theme";
 import OrderCompleteItem from "../../../components/OneUseComponents/OrderCompleteItem";
 import Carousel from "../../../components/Carousel";
 import { SwiperSlide } from "swiper/react";
 import OrderCompleteOrderDetails from "../../../components/OneUseComponents/OrderCompleteOrderDetails";
 import { Navigate, useNavigate } from "react-router-dom";
-import {  useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { useEffect } from "react";
 import { resetCartDataList } from "../../../store/CartSlice";
-
+import useOrders from "../../../hooks/ordersHooks/useOrders";
+import { CartItemType } from "../../../Types/Types";
+import PageLoadingSpinner from "../../../components/PageLoadingSpinner";
+import EmptyDataMsg from "../../../components/EmptyDataMsg";
 
 const orederCompletebreakpoints = {
   0: {
@@ -36,26 +39,33 @@ const orederCompletebreakpoints = {
 const currentPage = 2;
 
 function OrderComplete() {
+  const { lastOrder, lastOrderError, isLastOrderError, isLastOrderLoading } =
+    useOrders();
   const navigate = useNavigate();
-  const cartList = useSelector((state: RootState) => state.Cart.cartList);
+
   const storeCurrentPage = useSelector(
     (state: RootState) => state.Cart.currentCartPage
   );
+
   const dispatch = useDispatch();
 
-  // This page Data From server , because of order Id
-
-
-
   // Reset cart Data at last Page
-  useEffect(() =>{
+  useEffect(() => {
     dispatch(resetCartDataList());
-  },[dispatch])
+  }, [dispatch]);
 
-
-
-  
+  if (isLastOrderLoading) return <PageLoadingSpinner />;
+  if (isLastOrderError)
+    return <EmptyDataMsg message={lastOrderError?.message || ""} />;
   if (storeCurrentPage !== currentPage) return <Navigate to="/cart" />;
+
+  const {
+    id = "",
+    createdAt = "",
+    totalPrice = 0,
+    orderItems = [],
+    paymentMethod = "pay-on-delivery",
+  } = lastOrder || {};
 
   return (
     <Paper
@@ -103,10 +113,14 @@ function OrderComplete() {
       </Typography>
 
       {/* Order Complete List */}
-      <Carousel width="70%" breakpoints={orederCompletebreakpoints}>
-        {cartList.map((product) => (
+      <Carousel
+        width={"70%"}
+        breakpoints={orederCompletebreakpoints}
+        display={orderItems.length >= 3 ? "flex" : "none"}
+      >
+        {orderItems.map((product: CartItemType) => (
           <SwiperSlide
-          key={product.id}
+            key={product.id}
             style={{ width: "100%", backgroundColor: "transparent" }}
           >
             <OrderCompleteItem
@@ -119,13 +133,32 @@ function OrderComplete() {
         ))}
       </Carousel>
 
+      <Box
+        sx={{
+          display: orderItems.length < 3 ? "flex" : "none",
+          mt: "2rem",
+          gap: "1.5rem",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {orderItems.map((product: CartItemType) => (
+          <OrderCompleteItem
+            key={product.id}
+            quantity={product.quantity}
+            image={product.image}
+            name={product.name}
+          />
+        ))}
+      </Box>
+
       {/* Order Details */}
 
       <OrderCompleteOrderDetails
-        id={"23123"}
-        createdAt={new Date().toDateString()}
-        totalPrice={15324523}
-        paymentMethod={"pay-on-delivery"}
+        id={id}
+        createdAt={new Date(createdAt).toDateString()}
+        totalPrice={totalPrice}
+        paymentMethod={paymentMethod}
       />
 
       {/* Orders History Button */}
