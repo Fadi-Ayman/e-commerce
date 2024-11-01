@@ -31,9 +31,9 @@ const productCarouselbreakpoints = {
   },
 };
 
-type SuggestedProductsProps = Pick<ProductType, "category">;
+type SuggestedProductsProps = Pick<ProductType, "category" | "id">;
 
-function SuggestedProducts({ category }: SuggestedProductsProps) {
+function SuggestedProducts({ category, id }: SuggestedProductsProps) {
   const { isError, isLoading, error, suggestedProducts } =
     useProductsByCategory(category);
 
@@ -76,6 +76,7 @@ function SuggestedProducts({ category }: SuggestedProductsProps) {
               })
             : suggestedProducts.map((product: ProductCardType, i: number) => {
                 if (i >= productsCarouselMaxCount) return null;
+                if (product.id === id) return null;
                 return (
                   <SwiperSlide key={product.id}>
                     <ProductCard

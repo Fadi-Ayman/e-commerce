@@ -42,6 +42,7 @@ function PartnerLogosMarquee() {
             label={logo.label}
             alt={logo.label}
             itemConfig={WrapperItemConfigs}
+            
           />
         ))}
       </Wrapper>

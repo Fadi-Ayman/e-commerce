@@ -62,7 +62,7 @@ function QuantityInput({
           disabled={quantity === MIN_QUANTITY || !isAuthenticated}
           sx={{ color: "black", padding: { xs: "0.3rem", md: "0.3rem" } }}
         >
-          <RemoveIcon sx={{ fontSize: { xs: "16px", md: "20px" } }} />
+          <RemoveIcon sx={{ fontSize: { xs: "20px", md: "20px" } }} />
         </IconButton>
 
         <Box
@@ -82,7 +82,7 @@ function QuantityInput({
           disabled={quantity === MAX_QUANTITY || !isAuthenticated}
           sx={{ color: "black", padding: { xs: "0.3rem", md: "0.3rem" } }}
         >
-          <AddIcon sx={{ fontSize: { xs: "15px", md: "20px" } }} />
+          <AddIcon sx={{ fontSize: { xs: "20px", md: "20px" } }} />
         </IconButton>
       </Box>
     );
@@ -106,7 +106,7 @@ function QuantityInput({
         disabled={quantity === MIN_QUANTITY}
         sx={{ color: "black", padding: { xs: "0.3rem", md: "0.3rem" } }}
       >
-        <RemoveIcon sx={{ fontSize: { xs: "15px", md: "20px" } }} />
+        <RemoveIcon sx={{ fontSize: { xs: "18px", md: "20px" } }} />
       </IconButton>
 
       <Box
@@ -125,7 +125,7 @@ function QuantityInput({
         disabled={quantity === MAX_QUANTITY}
         sx={{ color: "black", padding: { xs: "0.3rem", md: "0.3rem" } }}
       >
-        <AddIcon sx={{ fontSize: { xs: "15px", md: "20px" } }} />
+        <AddIcon sx={{ fontSize: { xs: "18px", md: "20px" } }} />
       </IconButton>
     </Box>
   );

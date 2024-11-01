@@ -31,6 +31,7 @@ function EmptyDataMsg({
         textAlign: "center",
         padding: "2rem",
         bgcolor: "grey.100",
+        gridColumn: "1/-1",
       }}
     >
       <Typography fontSize={"inherit"} fontWeight={"inherit"} component={"h3"}>

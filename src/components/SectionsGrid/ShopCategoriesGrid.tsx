@@ -6,7 +6,7 @@ function ShopCategoriesGrid() {
     <Box
       sx={{
         height: "auto",
-        width: { xs: "100%", sm: "90%", md: "95%" },
+        width: { xs: "100%", sm: "90%", md: "94%" },
         mx: "auto",
         mt: { xs: "1.3rem", md: "1.6rem" },
         display: "grid",

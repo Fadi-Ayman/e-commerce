@@ -27,13 +27,6 @@ function ProductsGridList({
   const gridColsSm = useSelector((state: RootState) => state.ProductsGrid.sm);
   const gridColsLg = useSelector((state: RootState) => state.ProductsGrid.lg);
 
-  if (isError) {
-    return <EmptyDataMsg message={error?.message as string} />
-  }
-
-  if (ProductArray?.length === 0)
-    return <EmptyDataMsg message={"No Products To Show"} />;
-
   return (
     <Box
       sx={{
@@ -51,11 +44,16 @@ function ProductsGridList({
         },
       }}
     >
-      
-      {isLoading ?
+      {isLoading ? (
         Array.from({ length: maxProductsNumber }, (_, i) => (
           <CardSkeleton isInSlider={false} key={i} />
-        )):ProductArray?.map((product, i) => {
+        ))
+      ) : isError ? (
+        <EmptyDataMsg message={error?.message as string} />
+      ) : ProductArray?.length === 0 ? (
+        <EmptyDataMsg message="No products found" />
+      ) : (
+        ProductArray?.map((product, i) => {
           if (i >= maxProductsNumber) return;
           return (
             <ProductCard
@@ -70,8 +68,8 @@ function ProductsGridList({
               ratingValue={product.ratingValue}
             />
           );
-        })}
-
+        })
+      )}
     </Box>
   );
 }

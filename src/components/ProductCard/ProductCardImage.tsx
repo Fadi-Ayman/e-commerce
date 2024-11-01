@@ -29,11 +29,15 @@ function ProductCardImage({
     >
       {/* Product Image */}
       <CardMedia
-        sx={{ height: "100%", width: "100%", objectFit: "fill" }}
+        sx={{
+          height: "100%",
+          width: "100%",
+          objectFit: "fill",
+          backgroundColor: "grey.100",
+        }}
         component="img"
         image={image}
         alt={name}
-
       />
 
       {/* Tags & Discount Badges Container */}

@@ -32,7 +32,7 @@ function CartItem({
       <Typography
         sx={{
           fontSize: { xs: "12px", sm: "16px" },
-          fontWeight: "400",
+          fontWeight: "500",
           textAlign: "center",
         }}
       >

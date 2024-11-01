@@ -5,7 +5,6 @@ import { Suspense, lazy } from "react";
 
 // Pages
 const AppLayout = lazy(() => import("./components/LayoutComponents/AppLayout"));
-const Home = lazy(() => import("./pages/Home"));
 const Shop = lazy(() => import("./pages/Shop"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -28,6 +27,7 @@ const Product = lazy(() => import("./pages/Product"));
 import AuthProvider from "./context/AuthContext";
 import ScrollToTop from "./components/OneUseComponents/ScrollToTopOnNavigate";
 import PageLoadingSpinner from "./components/PageLoadingSpinner";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -83,7 +83,7 @@ function App() {
             duration: 2000,
           },
           error: {
-            duration: 4000,
+            duration: 3000,
           },
         }}
       />

@@ -158,7 +158,7 @@ export default function DrawerNav() {
           }}
         />
       </IconButton>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
+      <Drawer sx={{zIndex: "99999"}} open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
     </Box>

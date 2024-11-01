@@ -13,7 +13,7 @@ function AboutImageConainer() {
         width: "100%",
         bgcolor: theme.palette.grey[100],
         display: "flex",
-        backgroundImage: "url('AboutImageTop.png')",
+        backgroundImage: "url('AboutImageTop.jpg')",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundBlendMode: "darken",

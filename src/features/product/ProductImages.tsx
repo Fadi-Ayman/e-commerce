@@ -41,16 +41,22 @@ function ProductImages({ images }: ProductImagesProps) {
             width: "100%",
             height: "100%",
             cursor: "pointer",
+            backgroundColor: "grey.100",
             display: { xs: "none", md: "block" },
             aspectRatio: "1/1",
             borderRadius: "10px",
             overflow: "hidden",
-            border: activeIndex === index  ? "3px solid lightgreen" : "none",
+            border: activeIndex === index ? "3px solid lightgreen" : "none",
           }}
           onClick={() => setActiveIndex(index)}
         >
           <img
-            style={{ width: "100%", height: "100%", objectFit: "fill" }}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "fill",
+              backgroundColor: "grey.100",
+            }}
             src={image}
             alt={`Thumbnail ${index}`}
           />

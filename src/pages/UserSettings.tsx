@@ -2,22 +2,17 @@ import { Box } from "@mui/material";
 import { Navigate, Outlet } from "react-router-dom";
 import UserSettingsSideBar from "../features/settings/UserSettingsSideBar";
 import { useAuth } from "../context/AuthContext";
-import toast from "react-hot-toast";
-import { useEffect } from "react";
+import { Suspense } from "react";
+import PageLoadingSpinner from "../components/PageLoadingSpinner";
 
 function UserSettings() {
   const { isAuthenticated } = useAuth();
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      toast.error("Please Login First");
-    }
-  }, [isAuthenticated]);
 
   if (!isAuthenticated) {
     return <Navigate replace to="/login" />;
   }
 
+  
   return (
     <Box
       sx={{
@@ -38,10 +33,11 @@ function UserSettings() {
           width: "100%",
           height: "100%",
           padding: { xs: "0rem", md: "1rem 2rem" },
-          minHeight: "80vh",
         }}
       >
+        <Suspense fallback={<PageLoadingSpinner height="10vh" />}>
         <Outlet />
+        </Suspense>
       </Box>
     </Box>
   );

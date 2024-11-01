@@ -55,6 +55,7 @@ function useShopProductsOperations() {
     setPaginationPage(value);
     searchParams.set("page", value.toString());
     setSearchParams(searchParams);
+    window.scrollTo(0, 580);
   };
 
   const startIndex = (paginationPage - 1) * MaxProductsNumberPerPage;

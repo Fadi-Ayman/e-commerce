@@ -19,7 +19,7 @@ function CategoriesPaper({
     return (
       <Paper
         sx={{
-          bgcolor: theme.palette.grey[100],
+          bgcolor: theme.palette.grey[200],
           width: "100%",
           height: "100%",
           borderRadius: "6px",
@@ -35,7 +35,7 @@ function CategoriesPaper({
         <Box
           sx={{
             gridColumn: { xs: "10/-2", sm: "11/-3", md: "10/-2", lg: "11/-3" },
-            gridRow: { xs: "4/-4", md: "3/-3" },
+            gridRow: { xs: "3/-3", md: "2/-2" },
           }}
         >
           <img
@@ -70,7 +70,7 @@ function CategoriesPaper({
     return (
       <Paper
         sx={{
-          bgcolor: theme.palette.grey[100],
+          bgcolor: theme.palette.grey[200],
           width: "100%",
           height: "100%",
           borderRadius: "6px",
@@ -85,7 +85,7 @@ function CategoriesPaper({
       >
         <Box
           sx={{
-            gridColumn: { xs: "5/-5", sm: "6/-6", md: "4/-4", lg: "5/-5" },
+            gridColumn: { xs: "5/-5", sm: "7/-7", md: "3/-3", lg: "5/-5" },
             gridRow: { xs: "3/13", sm: "3/14", md: "3/15" },
           }}
         >

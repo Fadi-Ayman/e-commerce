@@ -19,7 +19,7 @@ function Newsletter() {
       return;
     }
 
-    toast.success(`Your email is ${emailInputValue}`);
+    toast.success(`Thank you for subscribing , check your Mail`);
   }
 
   return (

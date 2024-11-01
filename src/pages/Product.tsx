@@ -67,7 +67,7 @@ function Product() {
               sx={{ width: "100%", backgroundColor: theme.palette.grey[500] }}
             />
 
-            <SuggestedProducts category={category} />
+            <SuggestedProducts category={category} id={id} />
           </>
         )}
       </Box>

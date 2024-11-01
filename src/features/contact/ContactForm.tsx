@@ -9,6 +9,8 @@ function ContactForm() {
   const { isAuthenticated, userData } = useAuth();
   const navigate = useNavigate();
 
+
+  // controled inputs
   const [fullName, setFullName] = useState<string | "">(
     userData?.firstName || ""
   );
@@ -17,6 +19,8 @@ function ContactForm() {
   );
   const [message, setMessage] = useState<string>("");
 
+
+  // Handler function
   function handleFormAction(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
 
@@ -26,8 +30,9 @@ function ContactForm() {
     }
 
     toast.success(
-      `name is "${fullName}" and email is "${emailAddress}" and message is "${message}"`
+      `thank you ${fullName}, your message has been sent successfully`
     );
+    setMessage("");
   }
 
   return (

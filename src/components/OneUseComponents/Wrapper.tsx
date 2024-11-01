@@ -64,6 +64,8 @@ function WrapperItem({
     animationTimingFunction: animateTimingFunctionValue,
     animationIterationCount: "infinite",
     left: `max(calc(${itemSpacing}px * ${logosCount}), 100%)`,
+    cursor: "pointer",
+    
   };
 
   return (
@@ -92,6 +94,11 @@ function WrapperItem({
             mx: "auto",
             p: { xs: 1, sm: 2, lg: 3, xl: 4 },
             width: iconWidth,
+            "&:hover": {
+              transform: "scale(1.1,1.1)",
+            
+            },
+            transition: "transform 0.3s ease-in-out",
           }}
         >
           <img

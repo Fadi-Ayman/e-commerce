@@ -36,7 +36,6 @@ function ShippingAddressForm({
   const [addressValue, setAddressValue] = useState<string>("");
   const { addOrderLoading } = useOrders();
 
-
   useEffect(() => {
     if (selectedGovernorate !== "" && selectedCity !== "") {
       setAddressValue(`,${selectedCity} , ${selectedGovernorate}, Egypt`);
@@ -134,7 +133,6 @@ function ShippingAddressForm({
             defaultValue=""
             onChange={(e) => setSelectedCity(e.target.value)}
             value={selectedCity}
-            
             displayEmpty
             renderValue={(selected) => {
               if (selected.length === 0) {
@@ -191,7 +189,6 @@ function ShippingAddressForm({
           id={id + "address"}
           value={addressValue}
           disabled={addOrderLoading}
-
           onChange={(e) => setAddressValue(e.target.value)}
           error={!!errors.address}
           helperText={errors.address ? errors.address.message : false}

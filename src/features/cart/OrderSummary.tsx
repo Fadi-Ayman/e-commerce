@@ -22,22 +22,22 @@ function OrderSummary() {
         bgcolor: "grey.50",
         borderRadius: "5px",
         maxHeight: { xs: "100%", md: "46rem" },
-        scrollbarWidth: "thin", 
-        scrollbarColor: "grey transparent", 
+        scrollbarWidth: "thin",
+        scrollbarColor: "grey transparent",
         // padding: "0rem 0rem 0rem 0rem",
 
         "&::-webkit-scrollbar": {
-          width: "6px", 
+          width: "6px",
         },
         "&::-webkit-scrollbar-thumb": {
-          backgroundColor: "grey", 
-          borderRadius: "10px", 
+          backgroundColor: "grey",
+          borderRadius: "10px",
         },
         "&::-webkit-scrollbar-track": {
-          background: "transparent", 
+          background: "transparent",
         },
       }}
-      >
+    >
       {/* Cart Sammary Title */}
       <Typography
         component={"p"}
@@ -49,7 +49,7 @@ function OrderSummary() {
           position: "sticky",
           top: "0",
           padding: "0.8rem 1rem",
-          zIndex: "9999999",
+          zIndex: "99",
           bgcolor: "grey.50",
         }}
       >
@@ -85,7 +85,6 @@ function OrderSummary() {
         {/* Total */}
         <TotalAndSubTotalPrice />
       </Box>
-      
     </Box>
   );
 }

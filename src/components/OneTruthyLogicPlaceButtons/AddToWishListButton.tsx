@@ -89,14 +89,14 @@ function AddToWishListButton({
             bgcolor: "white",
             color: theme.palette.grey[300],
             position: "absolute",
-            top: { xs: "5%", md: "4%" },
-            right: { xs: "5%", md: "4%" },
+            top: { xs: "4%", md: "4%" },
+            right: { xs: "5%", md: "5%" },
             boxShadow: "80",
           }}
         >
           <FavoriteIcon
             sx={{
-              fontSize: { xs: "20px", lg: "25px" },
+              fontSize: { xs: "25px", lg: "25px" },
               color: isAddedToWishList ? "red" : "",
             }}
           />

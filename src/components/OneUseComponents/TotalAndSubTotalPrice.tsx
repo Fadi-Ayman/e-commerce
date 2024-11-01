@@ -25,7 +25,7 @@ function TotalAndSubTotalPrice() {
         position: "sticky",
         bottom: "0",
         bgcolor: "grey.50",
-        zIndex: "9999",
+        zIndex: "99",
         padding: pathname === "/cart/checkout" ? "1rem" : "0rem",
         borderTop:
           pathname === "/cart/checkout"
