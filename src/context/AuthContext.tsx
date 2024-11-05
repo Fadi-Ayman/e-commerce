@@ -81,6 +81,13 @@ export default function AuthProvider({
     onError: (error) => {
       toast.error(error.message);
     },
+    
+    onMutate: () => {
+      toast.loading("Logging in...", { id: "login" });
+    },
+    onSettled: () => {
+      toast.dismiss("login");
+    },
   });
 
   // Register
@@ -100,6 +107,13 @@ export default function AuthProvider({
     },
     onError: (error) => {
       toast.error(error.message);
+    },
+    
+    onMutate: () => {
+      toast.loading("registering...", { id: "register" });
+    },
+    onSettled: () => {
+      toast.dismiss("register");
     },
   });
 

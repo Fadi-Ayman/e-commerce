@@ -15,6 +15,8 @@ function WishListProduct({ productName, productImage }: WishListProductProps) {
         alignItems: "start",
         padding: "0.5rem 0rem",
         overflow: "visible",
+        whiteSpace: "nowrap",
+        textWrap: "nowrap",
       }}
     >
       <Box
@@ -37,6 +39,7 @@ function WishListProduct({ productName, productImage }: WishListProductProps) {
           textTransform: "capitalize",
           fontWeight: "bold",
           overflow: "visible",
+          whiteSpace: "nowrap",
           textWrap: "nowrap",
           width: { xs: "70px", md: "150px" },
           ml: { xs: "0.1rem", md: "0.5rem" },

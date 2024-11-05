@@ -37,6 +37,12 @@ function useWishlist() {
         toast.error("An unknown error occurred while adding item to wishlist.");
       }
     },
+    onMutate: () => {
+      toast.loading("Adding Item ...", { id: "addToWishlist" });
+    },
+    onSettled: () => {
+      toast.dismiss("addToWishlist");
+    },
   });
 
   // Delete Wishlist Item
@@ -57,6 +63,12 @@ function useWishlist() {
             "An unknown error occurred while removing item from wishlist."
           );
         }
+      },
+      onMutate: () => {
+        toast.loading("removing item ...", { id: "remove-image" });
+      },
+      onSettled: () => {
+        toast.dismiss("remove-image");
       },
     });
 

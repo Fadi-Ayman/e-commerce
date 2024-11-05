@@ -47,6 +47,13 @@ function useOrders() {
         toast.error("An unknown error occurred while creating order.");
       }
     },
+    
+    onMutate: () => {
+      toast.loading("Creating Order...", { id: "creatingOrder" });
+    },
+    onSettled: () => {
+      toast.dismiss("creatingOrder");
+    },
   });
 
   return {
