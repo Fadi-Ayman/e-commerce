@@ -66,6 +66,21 @@ function ProductCardImage({
           isInCard={true}
         />
       )}
+
+      {/* simple overlay */}
+      <Box
+        component={"span"}
+        sx={{
+          position: "absolute",
+          top: "0%",
+          left: "0%",
+          display: "block",
+          bgcolor: "transparent",
+          width: "100%",
+          height: "100%",
+          zIndex: "99",
+        }}
+      ></Box>
     </Box>
   );
 }
