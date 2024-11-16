@@ -92,7 +92,7 @@ function AddToWishListButton({
             top: { xs: "4%", md: "4%" },
             right: { xs: "5%", md: "5%" },
             boxShadow: "80",
-            zIndex:9999
+            zIndex: 999,
           }}
         >
           <FavoriteIcon
